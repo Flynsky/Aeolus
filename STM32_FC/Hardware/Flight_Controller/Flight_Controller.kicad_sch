@@ -1,0 +1,1140 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "cdc21999-7456-47d5-9217-0f662893cceb")
+	(paper "A4")
+	(lib_symbols
+		(symbol "ESC_Library:ESC_LOGO"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ESC_LOGO_1_1"
+				(rectangle
+					(start -2.54 1.27)
+					(end 2.54 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "LOGO"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 0.9906 0.9906)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 193.04 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "42f78c91-2b8f-41c7-b40f-2a1b4776d455")
+	)
+	(junction
+		(at 195.58 121.92)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6bba0459-506c-477c-98dc-47f77a1b2d27")
+	)
+	(wire
+		(pts
+			(xy 171.45 80.01) (xy 208.28 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09ff43e8-57fc-4e30-84ef-a5ed34c445ab")
+	)
+	(bus
+		(pts
+			(xy 195.58 102.87) (xy 195.58 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b49cc53-813b-4fff-a583-b172cd6b6215")
+	)
+	(bus
+		(pts
+			(xy 171.45 121.92) (xy 195.58 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e784219-344c-478d-8a13-59a26fbbc301")
+	)
+	(wire
+		(pts
+			(xy 171.45 110.49) (xy 208.28 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c3063af-c319-4fa6-9667-a796533e310c")
+	)
+	(wire
+		(pts
+			(xy 156.21 66.04) (xy 180.34 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "302ea005-067f-47c6-a57c-a717529a3dd1")
+	)
+	(wire
+		(pts
+			(xy 158.75 68.58) (xy 184.15 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "391bc1f2-780c-4bab-9063-d608bcf54bfa")
+	)
+	(wire
+		(pts
+			(xy 171.45 88.9) (xy 208.28 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b4b099f-9967-4c05-bf11-189b5898ad1a")
+	)
+	(bus
+		(pts
+			(xy 195.58 102.87) (xy 208.28 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e5a8045-7521-4639-aa31-7e3102390132")
+	)
+	(wire
+		(pts
+			(xy 171.45 119.38) (xy 208.28 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "602e6969-4435-450c-a2a3-9ee0d9d5d950")
+	)
+	(wire
+		(pts
+			(xy 180.34 66.04) (xy 180.34 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6486d12d-d12c-4d83-b538-3373874a6a50")
+	)
+	(bus
+		(pts
+			(xy 193.04 60.96) (xy 193.04 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "677acb9b-96c0-4800-940f-7b2c4abaca02")
+	)
+	(wire
+		(pts
+			(xy 171.45 77.47) (xy 208.28 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74696b83-87fe-412b-83df-23b7a3aaa264")
+	)
+	(bus
+		(pts
+			(xy 171.45 99.06) (xy 193.04 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88291ad6-2377-4ea0-bf66-a546eca795f6")
+	)
+	(wire
+		(pts
+			(xy 171.45 91.44) (xy 208.28 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "978b1b0e-44cb-4351-8c30-33eca2305579")
+	)
+	(bus
+		(pts
+			(xy 193.04 86.36) (xy 208.28 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97cc3da2-a08b-4aee-afe9-a509a63c85c7")
+	)
+	(wire
+		(pts
+			(xy 208.28 82.55) (xy 171.45 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9af0d43d-e228-499a-b7b4-3b75d4c067b2")
+	)
+	(wire
+		(pts
+			(xy 156.21 66.04) (xy 156.21 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac5dbd2b-117d-4315-9b03-7e2a0825371a")
+	)
+	(wire
+		(pts
+			(xy 184.15 60.96) (xy 184.15 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae9afe7d-8444-46ca-b651-6c54515a7471")
+	)
+	(wire
+		(pts
+			(xy 187.96 60.96) (xy 187.96 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b92e5029-aad7-4fcc-bc42-8fa14b6a48bb")
+	)
+	(wire
+		(pts
+			(xy 171.45 93.98) (xy 208.28 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba134aad-907c-4793-bf72-58e6ef0cb0fd")
+	)
+	(wire
+		(pts
+			(xy 158.75 73.66) (xy 158.75 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bad74efd-4920-4abe-a4fc-a9e7b5a18de4")
+	)
+	(wire
+		(pts
+			(xy 161.29 71.12) (xy 187.96 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf2f5530-edf5-49e6-a05c-f7d5501c7a37")
+	)
+	(bus
+		(pts
+			(xy 193.04 86.36) (xy 193.04 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0c1e065-ebb1-424d-b267-dc4643122d04")
+	)
+	(bus
+		(pts
+			(xy 195.58 121.92) (xy 208.28 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dfa66881-d1a0-4cfb-839a-e3cdeb02ec7e")
+	)
+	(wire
+		(pts
+			(xy 171.45 116.84) (xy 208.28 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0f3c98a-73aa-4851-820f-3d7b1238ef24")
+	)
+	(wire
+		(pts
+			(xy 161.29 71.12) (xy 161.29 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6cf8163-2af6-437a-a99b-126174e44222")
+	)
+	(wire
+		(pts
+			(xy 171.45 105.41) (xy 208.28 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdbba5e1-cfcb-4ff7-9cd0-91bdea8b474f")
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 260.35 148.59 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1ad1736e-57ae-44e9-a09a-2df932a2e6c7")
+		(property "Reference" "H2"
+			(at 262.89 147.3199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 262.89 149.8599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2"
+			(at 260.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 260.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 260.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "ESC"
+				(path "/a998ef63-1881-46ed-abf4-8d9591ea0fbd"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 260.35 143.51 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1c5c3d52-3d5e-4133-a371-322d1726267c")
+		(property "Reference" "H1"
+			(at 262.89 142.2399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 262.89 144.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_DIN965_Pad"
+			(at 260.35 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 260.35 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 260.35 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/a998ef63-1881-46ed-abf4-8d9591ea0fbd"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ESC_Library:ESC_LOGO")
+		(at 275.59 20.32 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "527dfb60-ca3b-4b7c-9382-78beddeef5e8")
+		(property "Reference" "U6"
+			(at 279.4 19.6849 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "~"
+			(at 279.4 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "ESC_footrpints:ESC_LOGO"
+			(at 275.59 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 275.59 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 275.59 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/a998ef63-1881-46ed-abf4-8d9591ea0fbd"
+					(reference "U6")
+					(unit 1)
+				)
+			)
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 208.28 74.295)
+		(size 40.005 52.07)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 1.0000)
+		)
+		(uuid "4d9e4648-9d5a-48bf-aaaf-8a54244826cc")
+		(property "Sheetname" "Sensors"
+			(at 208.28 73.5834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Sensors.kicad_sch"
+			(at 208.28 126.9496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "MAG_CS" input
+			(at 208.28 116.84 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "d79a19ba-90d7-4990-b675-8cc75e3eb4ab")
+		)
+		(pin "MAG_INT" input
+			(at 208.28 119.38 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4fc7db25-605a-440e-a0b3-d13f5a0b2ca9")
+		)
+		(pin "IMU_Int1" input
+			(at 208.28 93.98 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "3d9b47f6-f332-42d2-b75a-bb0d3287a967")
+		)
+		(pin "IMU_Int2" input
+			(at 208.28 91.44 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "88e980d9-3da2-4ef7-90ba-c8d1b66fca2a")
+		)
+		(pin "IMU_CS" input
+			(at 208.28 88.9 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "16d37d18-6081-4e84-b507-c1d193b06453")
+		)
+		(pin "TOF_XShut" input
+			(at 208.28 105.41 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "05a47dc7-3453-451d-9fdd-22c50ba4fb92")
+		)
+		(pin "NTC_2" input
+			(at 208.28 82.55 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "b3611f0b-4567-4b60-b716-bde4a78afff4")
+		)
+		(pin "NTC_0" input
+			(at 208.28 77.47 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "8b1ab170-e170-4a10-914a-d234f3306903")
+		)
+		(pin "NTC_1" input
+			(at 208.28 80.01 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "ede2f9fd-96de-41bc-88e2-096ca379c97c")
+		)
+		(pin "TOF_GPIO_INT" input
+			(at 208.28 110.49 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f2f468e7-2e58-4e2d-af56-5face04b62ba")
+		)
+		(pin "IMU_SPI{SCK,MOSI,MISO}" bidirectional
+			(at 208.28 86.36 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "e0f03160-81ad-4db5-abc2-bab9a492d84e")
+		)
+		(pin "MAG_I2C{SDA,SCL}" bidirectional
+			(at 208.28 121.92 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "38e1f463-6f78-4746-aacd-732b6a162419")
+		)
+		(pin "TOF_I2C{SDA,SCL}" bidirectional
+			(at 208.28 102.87 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "055dd7c7-04d6-45c0-ae2c-e66f632a406c")
+		)
+		(instances
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 175.26 29.845)
+		(size 26.67 31.115)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 1.0000)
+		)
+		(uuid "53b612ef-01da-40e1-9605-87d721bcc1a9")
+		(property "Sheetname" "Com"
+			(at 174.5484 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Com.kicad_sch"
+			(at 202.5146 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "IRQ_NRF" output
+			(at 187.96 60.96 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "feff732a-9e7f-460d-bbd9-ccc1b5d35b6a")
+		)
+		(pin "CE_NRF" output
+			(at 180.34 60.96 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "90f8b10d-dda5-42ff-9698-d18a6bd4de51")
+		)
+		(pin "CS_NRF" output
+			(at 184.15 60.96 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "571928ef-0ef1-4381-a82c-75abad159ed4")
+		)
+		(pin "NR_SPI{SCK,MOSI,MISO}" bidirectional
+			(at 193.04 60.96 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "591e5d3d-50b7-4263-9ef2-63e77d5f93f8")
+		)
+		(instances
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 74.295)
+		(size 41.91 52.07)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 1.0000)
+		)
+		(uuid "d3233659-83e8-4957-b46c-ec51596ce3b9")
+		(property "Sheetname" "Power"
+			(at 35.56 73.5834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power.kicad_sch"
+			(at 35.56 126.9496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 113.665 73.66)
+		(size 57.785 52.705)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 1.0000)
+		)
+		(uuid "df98ec24-2129-4e1a-9451-9281cc19ffc2")
+		(property "Sheetname" "STM32L412CBUx"
+			(at 113.665 72.9484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "STM32L412CBUx.kicad_sch"
+			(at 113.665 126.9496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "SPI2{SCK,MOSI,MISO}" bidirectional
+			(at 171.45 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "341bf392-b7e0-406b-bc04-408e8b8d686c")
+		)
+		(pin "I2C2{SDA,SCL}" bidirectional
+			(at 171.45 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "34e704d3-c5b7-4875-a76f-845bae4b830b")
+		)
+		(pin "PB12" bidirectional
+			(at 171.45 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "59433cc2-5551-4ddc-8f4e-262f02ae32b5")
+		)
+		(pin "PB2" bidirectional
+			(at 171.45 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "dc901042-74dd-482e-8a89-653dbfc1c32d")
+		)
+		(pin "PB1" bidirectional
+			(at 171.45 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "3d5ffc67-56ff-41b6-9369-00e3c53f3eb8")
+		)
+		(pin "PA1" bidirectional
+			(at 171.45 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "163c320e-76a7-4f77-ac54-7f4fc613098b")
+		)
+		(pin "PA0" bidirectional
+			(at 171.45 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "90d4000b-fba5-4cea-9548-e9e12841c2c8")
+		)
+		(pin "PA8" bidirectional
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "2fe25139-2497-4dc9-b895-00402bf73c43")
+		)
+		(pin "PA6" bidirectional
+			(at 171.45 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "efa8c279-1397-4ce3-8ffa-fc56bbcd368c")
+		)
+		(pin "PA5" bidirectional
+			(at 171.45 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "0c097032-d23b-491c-98f5-70b716a3d9a8")
+		)
+		(pin "PB8" bidirectional
+			(at 171.45 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "a0ad3b98-8f51-462a-8d09-33606b5d7b17")
+		)
+		(pin "PB7" bidirectional
+			(at 171.45 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "8e35fd54-43c1-4a42-be0e-65b4c5549c44")
+		)
+		(pin "SWCLK{slash}PA14" bidirectional
+			(at 171.45 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "4e02190f-b965-491c-aac9-26e3b37d1067")
+		)
+		(pin "PC15" bidirectional
+			(at 156.21 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "4482709c-8941-4368-9443-d3fd03ee6fec")
+		)
+		(pin "PC14" bidirectional
+			(at 158.75 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "cb2e3159-d9e8-4289-9a82-b145577ae200")
+		)
+		(pin "PC13" bidirectional
+			(at 161.29 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "5146be23-5370-4742-a49d-33059cafd591")
+		)
+		(instances
+			(project "Flight_Controller"
+				(path "/cdc21999-7456-47d5-9217-0f662893cceb"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

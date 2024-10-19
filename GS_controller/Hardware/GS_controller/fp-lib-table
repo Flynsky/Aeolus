@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "FC_footrpints")(type "KiCad")(uri "${KIPRJMOD}/Libary/FC_footrpints.pretty")(options "")(descr ""))
+)

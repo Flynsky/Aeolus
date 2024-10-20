@@ -3,14 +3,17 @@ from pyqtgraph.Qt import QtWidgets, QtCore
 import numpy as np
 import sys
 import time
+from Serial_manager import Serial
 
 class SineWavePlot:
     def __init__(self, parent):
-        self.plot_widget = parent.addPlot(title="Real-Time Sine Wave")
+        self.plot_widget = pg.PlotWidget(title="Real-Time Sine Wave", titleColor='w')
         self.plot_widget.setYRange(-1, 1)
         self.plot_widget.setXRange(0, 2 * np.pi)
+        self.plot_widget.setBackground('k')  # Set background to black
+        self.plot_widget.showGrid(x=True, y=True)  # Show grid
         self.x_data = np.linspace(0, 2 * np.pi, 100)
-        self.curve = self.plot_widget.plot(pen='y')  # yellow line
+        self.curve = self.plot_widget.plot(pen='y')  # Yellow line
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.update)
         self.timer.start(50)  # Update every 50 ms
@@ -21,8 +24,10 @@ class SineWavePlot:
 
 class DiscreteValuePlot:
     def __init__(self, parent):
-        self.plot_widget = parent.addPlot(title="Discrete Values")
-        self.curve = self.plot_widget.plot(pen='g')  # green line for discrete values
+        self.plot_widget = pg.PlotWidget(title="Discrete Values", titleColor='w')
+        self.plot_widget.setBackground('k')  # Set background to black
+        self.plot_widget.showGrid(x=True, y=True)  # Show grid
+        self.curve = self.plot_widget.plot(pen='g')  # Green line for discrete values
         self.discrete_x_data = []
         self.discrete_y_data = []
         self.timer = QtCore.QTimer()
@@ -41,39 +46,58 @@ class DiscreteValuePlot:
 
 class MainWindow:
     def __init__(self):
+        self.ser = Serial()
         self.app = QtWidgets.QApplication([])
 
         # Create a window to hold the plots and controls
-        self.win = pg.GraphicsLayoutWidget(show=True, title="Real-Time Sine Wave and Discrete Values Plot")
+        self.win = QtWidgets.QWidget()
+        self.win.setWindowTitle("Real-Time Plots")
         self.win.resize(800, 600)
+        self.win.setStyleSheet("background-color: black; border: 5px solid black;")
+        # self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint) #no frame
+        # Alternatively, if you want a window with a black frame:
 
         # Create plot objects
         self.sine_wave_plot = SineWavePlot(self.win)
         self.discrete_value_plot = DiscreteValuePlot(self.win)
 
-        # Create layout for controls
-        self.control_layout = QtWidgets.QVBoxLayout()
-
-        # Add dropdown selector
+        # Create a text field
+        self.text_field = QtWidgets.QLineEdit()
+        self.text_field.setPlaceholderText("Enter some text...")
+        self.text_field.setStyleSheet("background-color: white; color: black;")  # Style for text field
+       
+        # Create control elements
         self.selector = QtWidgets.QComboBox()
         self.selector.addItems(["Select Option", "Option 1", "Option 2", "Option 3"])
-        self.control_layout.addWidget(self.selector)
+        self.selector.setStyleSheet("background-color: white; color: black;")  # Style for dropdown
 
         # Add button to trigger action
         self.button = QtWidgets.QPushButton("Add Discrete Value")
         self.button.clicked.connect(self.on_button_click)
-        self.control_layout.addWidget(self.button)
+        self.button.setStyleSheet("background-color: green; color: white;")  # Style for button
 
-        # Add controls to the window
-        self.win.setLayout(self.control_layout)
+        # Create layout
+        self.grid_layout = QtWidgets.QGridLayout()
+        self.win.setLayout(self.grid_layout)
+
+        # Add elements to the grid layout
+        self.grid_layout.addWidget(self.sine_wave_plot.plot_widget, 0, 0)
+        self.grid_layout.addWidget(self.discrete_value_plot.plot_widget, 1, 0)
+        self.grid_layout.addWidget(self.text_field, 0, 2)  # Text field in row 2
+        self.grid_layout.addWidget(self.selector, 1, 2)  # Dropdown in row 3
+        self.grid_layout.addWidget(self.button, 2, 2)     # Button in row 4
+
+        # Show the window
+        self.win.show()
 
     def on_button_click(self):
         selected_option = self.selector.currentText()
+        text_value = self.text_field.text()  # Get text from the text field
         if selected_option != "Select Option":
             value = np.random.rand()  # Simulate a random value for demonstration
             timestamp = time.time()
             self.discrete_value_plot.add_discrete_value(value, timestamp)
-            print(f"Added value: {value} at {timestamp} for {selected_option}")
+            print(f"Added value: {value:.2f} at {timestamp:.2f} for {selected_option}. Text: {text_value}")
 
 # Start the application
 if __name__ == '__main__':

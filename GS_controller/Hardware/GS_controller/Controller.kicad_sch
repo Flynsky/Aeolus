@@ -1328,6 +1328,151 @@
 				)
 			)
 		)
+		(symbol "Diode:1N5819WS"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1N5819WS"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_SMD:D_SOD-323"
+				(at 0 -4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode Schottky"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D*SOD?323*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "1N5819WS_0_1"
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "1N5819WS_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "FC_Library:435441019830"
 			(pin_names
 				(offset 0.762)
@@ -3678,6 +3823,12 @@
 		(uuid "2fc8c470-9f95-421f-9ee7-e0cec4d34a3f")
 	)
 	(junction
+		(at 205.74 33.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "38037cd0-2327-4d09-bfcc-9a71a793c506")
+	)
+	(junction
 		(at 80.01 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3805,10 +3956,6 @@
 		(at 63.5 45.72)
 		(uuid "b8c10f1e-ec20-4844-9ab9-2114ed4a1d22")
 	)
-	(no_connect
-		(at 63.5 55.88)
-		(uuid "c7d67538-eae9-482e-a551-e6afe69bedd0")
-	)
 	(bus_entry
 		(at 31.75 96.52)
 		(size 2.54 2.54)
@@ -3893,6 +4040,16 @@
 			(type default)
 		)
 		(uuid "078ecfb6-422c-4c69-9759-f0475772692e")
+	)
+	(wire
+		(pts
+			(xy 58.42 55.88) (xy 63.5 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09b3d874-9fea-40fe-bda5-dd7af7832e24")
 	)
 	(wire
 		(pts
@@ -4013,6 +4170,16 @@
 			(type default)
 		)
 		(uuid "1b46de6b-dbd2-4ccb-bb86-1c04b0632366")
+	)
+	(wire
+		(pts
+			(xy 52.07 55.88) (xy 53.34 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1dac893e-0839-4043-ae63-37e487d197c8")
 	)
 	(wire
 		(pts
@@ -4153,6 +4320,16 @@
 			(type default)
 		)
 		(uuid "3534fc6e-e061-43dc-8351-5fa276ad78c7")
+	)
+	(wire
+		(pts
+			(xy 205.74 33.02) (xy 213.36 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39249f5e-9e95-414d-978f-a05842652c82")
 	)
 	(wire
 		(pts
@@ -4366,13 +4543,23 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 29.21) (xy 205.74 36.83)
+			(xy 205.74 29.21) (xy 205.74 33.02)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "4cb82119-9435-41d3-ae23-c0b6c564cf94")
+	)
+	(wire
+		(pts
+			(xy 220.98 33.02) (xy 224.79 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50eba1f6-fc5b-431b-857c-5d254045de1f")
 	)
 	(wire
 		(pts
@@ -4826,6 +5013,16 @@
 	)
 	(wire
 		(pts
+			(xy 205.74 33.02) (xy 205.74 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97969aa2-2c9f-4977-bcab-d20993edfb94")
+	)
+	(wire
+		(pts
 			(xy 102.87 76.2) (xy 93.98 76.2)
 		)
 		(stroke
@@ -5253,6 +5450,16 @@
 			(type default)
 		)
 		(uuid "eb903d01-dda0-4064-b48d-20cde5e755f5")
+	)
+	(wire
+		(pts
+			(xy 224.79 33.02) (xy 224.79 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eeecc37f-d928-45c1-94b0-a017e9939d87")
 	)
 	(wire
 		(pts
@@ -5947,6 +6154,12 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "R2")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -6010,6 +6223,75 @@
 			(project "GS_controller"
 				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
 					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:1N5819WS")
+		(at 217.17 33.02 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1da46689-dc30-4d83-9b6e-e0cbc74f49dc")
+		(property "Reference" "D4"
+			(at 216.2174 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "1N5819WS"
+			(at 218.7574 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SOD-323"
+			(at 217.17 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf"
+			(at 217.17 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "40V 600mV@1A 1A SOD-323 Schottky Barrier Diodes, SOD-323"
+			(at 217.17 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2dd86a6a-b118-4571-bf60-8ebaa7d5db22")
+		)
+		(pin "2"
+			(uuid "f3908a90-5e25-4652-9858-824b82bbfb9e")
+		)
+		(instances
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "D4")
 					(unit 1)
 				)
 			)
@@ -6154,6 +6436,12 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "R13")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -6220,6 +6508,12 @@
 		(instances
 			(project "Flight_Controller"
 				(path "/cdc21999-7456-47d5-9217-0f662893cceb/df98ec24-2129-4e1a-9451-9281cc19ffc2"
+					(reference "C15")
+					(unit 1)
+				)
+			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
 					(reference "C15")
 					(unit 1)
 				)
@@ -6506,6 +6800,12 @@
 		(instances
 			(project "Flight_Controller"
 				(path "/cdc21999-7456-47d5-9217-0f662893cceb/df98ec24-2129-4e1a-9451-9281cc19ffc2"
+					(reference "Y1")
+					(unit 1)
+				)
+			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
 					(reference "Y1")
 					(unit 1)
 				)
@@ -7068,6 +7368,12 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "R7")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -7347,6 +7653,12 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "U1")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -7416,6 +7728,12 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "C16")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -7480,6 +7798,12 @@
 			(project "Flight_Controller"
 				(path "/cdc21999-7456-47d5-9217-0f662893cceb/df98ec24-2129-4e1a-9451-9281cc19ffc2"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -7677,6 +8001,12 @@
 			(project "Flight_Controller"
 				(path "/cdc21999-7456-47d5-9217-0f662893cceb/df98ec24-2129-4e1a-9451-9281cc19ffc2"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -8090,6 +8420,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+6V")
+		(at 224.79 30.48 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c63cfaba-95b8-421d-a47c-4f49b2f4187b")
+		(property "Reference" "#PWR053"
+			(at 224.79 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "V_Bat"
+			(at 224.79 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 224.79 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 224.79 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+6V\""
+			(at 224.79 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "df51714e-fdf6-439d-8b0e-aa1ca407c2dc")
+		)
+		(instances
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "#PWR053")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 49.53 30.48 0)
 		(mirror x)
@@ -8371,6 +8768,80 @@
 					(unit 1)
 				)
 			)
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 55.88 55.88 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dbf73b05-2d01-42f8-ba00-c4bdbc1126b3")
+		(property "Reference" "J_BOOT1"
+			(at 56.642 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 57.404 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 55.88 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 55.88 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 55.88 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4fa9563a-9394-48ed-b436-64f1f1b51ffd")
+		)
+		(pin "1"
+			(uuid "d58652b1-85ca-4bfb-b5e1-d7eee33dd24a")
+		)
+		(instances
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "J_BOOT1")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -8580,6 +9051,73 @@
 			(project "GS_controller"
 				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
 					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 52.07 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ec43cace-7210-4567-95b6-cc915a05c587")
+		(property "Reference" "#PWR052"
+			(at 52.07 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 52.07 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 52.07 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 52.07 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 52.07 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fa44bb2-06f7-4be5-b728-328bbc5df087")
+		)
+		(instances
+			(project "GS_controller"
+				(path "/ec4bf459-0e12-4f1e-b047-eafdad26c735/fe278044-c8d9-4690-a265-6fb4469a7b65"
+					(reference "#PWR052")
 					(unit 1)
 				)
 			)

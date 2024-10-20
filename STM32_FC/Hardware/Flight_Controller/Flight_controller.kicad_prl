@@ -82,30 +82,6 @@
   "project": {
     "files": [
       {
-        "name": "Flight_Controller.kicad_pcb",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": -8,
-          "pos_y": -8,
-          "size_x": 1936,
-          "size_y": 1056
-        }
-      },
-      {
-        "name": "Flight_Controller.kicad_pro",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": -8,
-          "pos_y": -8,
-          "size_x": 1936,
-          "size_y": 1056
-        }
-      },
-      {
         "name": "Flight_Controller.kicad_sch",
         "open": true,
         "window": {

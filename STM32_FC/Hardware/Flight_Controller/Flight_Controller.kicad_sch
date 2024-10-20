@@ -897,7 +897,7 @@
 		)
 	)
 	(sheet
-		(at 35.56 74.295)
+		(at 35.56 74.93)
 		(size 41.91 52.07)
 		(fields_autoplaced yes)
 		(stroke
@@ -909,7 +909,7 @@
 		)
 		(uuid "d3233659-83e8-4957-b46c-ec51596ce3b9")
 		(property "Sheetname" "Power"
-			(at 35.56 73.5834 0)
+			(at 35.56 74.2184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -918,7 +918,7 @@
 			)
 		)
 		(property "Sheetfile" "Power.kicad_sch"
-			(at 35.56 126.9496 0)
+			(at 35.56 127.5846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1074,16 +1074,6 @@
 			)
 			(uuid "a0ad3b98-8f51-462a-8d09-33606b5d7b17")
 		)
-		(pin "PB7" bidirectional
-			(at 171.45 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "8e35fd54-43c1-4a42-be0e-65b4c5549c44")
-		)
 		(pin "SWCLK{slash}PA14" bidirectional
 			(at 171.45 93.98 0)
 			(effects
@@ -1123,6 +1113,16 @@
 				(justify right)
 			)
 			(uuid "5146be23-5370-4742-a49d-33059cafd591")
+		)
+		(pin "PB9" bidirectional
+			(at 171.45 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "44f16fbe-1839-485c-bf92-c973c3a662e0")
 		)
 		(instances
 			(project "Flight_Controller"

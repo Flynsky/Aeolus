@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "FC_footprints")(type "KiCad")(uri "G:/Andere Computer/Mein PC/Fynn/Projekte/Drone/Aeolus/STM32_FC/Hardware/Flight_Controller/Libary/Library.pretty")(options "")(descr ""))
+  (lib (name "ESC_footrpints")(type "KiCad")(uri "G:/Andere Computer/Mein PC/Fynn/Projekte/Drone/Aeolus/STM32_ESC/Hardware/ESC/Libary/ESC_footrpints.pretty")(options "")(descr ""))
+)

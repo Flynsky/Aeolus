@@ -30,14 +30,20 @@ class DiscreteValuePlot:
         self.curve = self.plot_widget.plot(pen='g')  # Green line for discrete values
         self.discrete_x_data = []
         self.discrete_y_data = []
+
+        self.Serial_Port = Serial()
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.generate_data)
-        self.timer.start(1000)  # Generate data every second
+        self.timer.start(10)  # Redout data every second
 
     def generate_data(self):
         timestamp = time.time()
-        value = np.random.rand()  # Simulated discrete value
-        self.add_discrete_value(value, timestamp)
+        try:
+            value = list(self.Serial_Port.read_buffer())[0][0]
+            print(F'plot:{value}')
+            self.add_discrete_value(value, timestamp)
+        except Exception as e:
+            pass
 
     def add_discrete_value(self, value, timestamp):
         self.discrete_x_data.append(timestamp)
@@ -46,7 +52,6 @@ class DiscreteValuePlot:
 
 class MainWindow:
     def __init__(self):
-        self.ser = Serial()
         self.app = QtWidgets.QApplication([])
 
         # Create a window to hold the plots and controls

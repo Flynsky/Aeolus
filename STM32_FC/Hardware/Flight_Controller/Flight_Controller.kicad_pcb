@@ -23896,16 +23896,6 @@
 		(layer "F.Mask")
 		(uuid "a54dde5a-dc8c-46a4-9d4d-d58177177d8f")
 	)
-	(gr_line
-		(start 64.7 48.65)
-		(end 64.7 25.45)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "0398a598-7080-4bb5-b2ea-57e44689a574")
-	)
 	(gr_arc
 		(start 13.688 16.66)
 		(mid 14.56668 14.53868)
@@ -23939,26 +23929,6 @@
 		(uuid "4ad6ba0e-be6a-4eed-a26f-0ba71c2e3e47")
 	)
 	(gr_line
-		(start 64.7 49.55)
-		(end 63.7 49.55)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "56450d9d-b817-4196-b15a-310cb6c39fe6")
-	)
-	(gr_line
-		(start 64.7 24.75)
-		(end 64.7 21.507157)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "5d097910-3701-48cd-9594-426179b99661")
-	)
-	(gr_line
 		(start 63.7 49.55)
 		(end 63.688 60.66)
 		(stroke
@@ -23980,54 +23950,14 @@
 		(uuid "64313862-c4d6-498e-b3cb-f74e88bab360")
 	)
 	(gr_line
-		(start 63.7 25.45)
-		(end 63.7 48.65)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "68a89aa7-e6ed-4018-8e85-4fc05b661307")
-	)
-	(gr_line
 		(start 63.688 16.66)
-		(end 63.7 24.75)
+		(end 63.7 49.55)
 		(stroke
 			(width 0.05)
 			(type default)
 		)
 		(layer "Edge.Cuts")
 		(uuid "743bdc1e-d32a-4612-8b55-81fbf3fcd36c")
-	)
-	(gr_line
-		(start 63.7 48.65)
-		(end 64.7 48.65)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "74e6f861-3c85-4437-82a9-54be94dbbdac")
-	)
-	(gr_line
-		(start 63.7 24.75)
-		(end 64.7 24.75)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "9e76ba25-d339-40c1-9888-aa170180e527")
-	)
-	(gr_line
-		(start 64.7 55.507157)
-		(end 64.7 49.55)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "aac0904d-8cde-4c9c-ab7c-8c07a0147642")
 	)
 	(gr_line
 		(start 13.688 60.66)
@@ -24059,16 +23989,6 @@
 		)
 		(layer "Edge.Cuts")
 		(uuid "c15b732f-be14-47d5-a642-eec5a74be783")
-	)
-	(gr_line
-		(start 63.7 25.45)
-		(end 64.7 25.45)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "c85aa84f-4b50-4cd5-92e9-af30dced0078")
 	)
 	(gr_text "GN  SC  SD  3V"
 		(at 63.2 58.3 90)

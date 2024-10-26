@@ -12092,7 +12092,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "12p"
 			(at 108.204 260.858 0)
 			(effects
 				(font
@@ -13533,7 +13533,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 119.126 204.724 0)
 			(effects
 				(font
@@ -14217,7 +14217,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "12p"
 			(at 120.396 260.858 0)
 			(effects
 				(font
@@ -15165,7 +15165,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "5.1k"
 			(at 119.38 196.85 0)
 			(effects
 				(font
@@ -16625,7 +16625,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "22k"
 			(at 95.25 115.316 0)
 			(effects
 				(font
@@ -16893,7 +16893,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 266.446 246.634 0)
 			(effects
 				(font
@@ -16961,7 +16961,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 115.57 115.316 0)
 			(effects
 				(font
@@ -18113,7 +18113,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "5.1k"
 			(at 266.7 238.76 0)
 			(effects
 				(font
@@ -18246,7 +18246,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 266.446 156.464 0)
 			(effects
 				(font
@@ -18313,7 +18313,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "5.1k"
 			(at 266.7 148.59 0)
 			(effects
 				(font
@@ -20197,7 +20197,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "5.1k"
 			(at 270.51 58.42 0)
 			(effects
 				(font
@@ -20264,7 +20264,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 270.256 66.294 0)
 			(effects
 				(font

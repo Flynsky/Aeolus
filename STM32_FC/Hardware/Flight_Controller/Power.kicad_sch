@@ -5100,7 +5100,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "13k"
 			(at 93.218 61.214 0)
 			(effects
 				(font

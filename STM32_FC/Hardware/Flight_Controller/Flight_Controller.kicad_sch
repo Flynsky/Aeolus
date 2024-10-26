@@ -439,6 +439,29 @@
 		)
 		(uuid "fdbba5e1-cfcb-4ff7-9cd0-91bdea8b474f")
 	)
+	(text_box "Known Design Errors:\nCom Quarz footprint is wrong\n"
+		(exclude_from_sim no)
+		(at 226.06 29.845 0)
+		(size 37.465 33.655)
+		(stroke
+			(width -0.0001)
+			(type default)
+			(color 255 255 0 1)
+		)
+		(fill
+			(type color)
+			(color 194 194 0 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(italic yes)
+				(color 0 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "4917ce41-eda7-45f8-ab45-2d226dacb0db")
+	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
 		(at 260.35 148.59 0)

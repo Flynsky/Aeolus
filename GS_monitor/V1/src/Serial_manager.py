@@ -5,12 +5,16 @@ import threading
 import struct
 
 class Serial():
-    def __init__(self, port='COM7', baud_rate=9600, timeout=1):
+    """Reads out Serial data in a buffer
+    This data has to be in a fixed format"""
+    def __init__(self, port='COM7', baud_rate=9600, timeout=1,format="L"):
         self.port = port
         self.baud_rate = baud_rate
         self.timeout = timeout
+        self.format = format
 
         self.SERIAL_READ_BUFFER = bytearray()
+        self.SERIAL_BUFFER_FORMATED = []
         self.lock = threading.Lock()
         
         self.list_serial_ports()
@@ -46,6 +50,9 @@ class Serial():
                 if port is not None and port.in_waiting > 0:
                     with self.lock:
                         self.SERIAL_READ_BUFFER += port.read(port.in_waiting)
+                    if (len(self.SERIAL_READ_BUFFER)) % len(format) == 0:
+                        #reads Serial data formated in other buffer
+                        pass
 
             except KeyboardInterrupt:
                 print("Exiting...")
@@ -56,16 +63,13 @@ class Serial():
                 print(f"Read error: {e}")
                 break
 
-    def read_buffer(self):
+    def format_buffer(self):
         with self.lock:
             data = self.SERIAL_READ_BUFFER.copy()
-            self.SERIAL_READ_BUFFER.clear()  # Clear the buffer after copying
 
-        # if data:
-            # print(f"Read data: {data}")
+
             try:
-                # Unpacking assuming you have 4-byte unsigned integers
-                unpacked_data = struct.iter_unpack("L", data)
+                unpacked_data = struct.iter_unpack(self.format, data)
                 return unpacked_data
             except struct.error as e:
                 pass
@@ -75,7 +79,11 @@ if __name__ == "__main__":
     ser = Serial(port='COM7', baud_rate=9600)
     try:
         while True:
-            ser.read_buffer()
-            time.sleep(0.01)
+            data = ser.SERIAL_READ_BUFFER
+            print(data)
+            unpacked_data = struct.iter_unpack("L", data)
+            print(list(unpacked_data))
+            time.sleep(3)
+            print("\n\n")
     except KeyboardInterrupt:
         print("Program terminated.")

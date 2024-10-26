@@ -3636,7 +3636,7 @@
 		(uuid "1b586631-e869-47e8-b7c1-03d08a74543e")
 	)
 	(junction
-		(at 167.64 100.33)
+		(at 161.29 100.33)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1dba3637-b650-4d86-be12-bdd7392edea6")
@@ -3882,7 +3882,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 107.95) (xy 167.64 106.68)
+			(xy 161.29 107.95) (xy 161.29 106.68)
 		)
 		(stroke
 			(width 0)
@@ -4022,7 +4022,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 99.06) (xy 167.64 100.33)
+			(xy 161.29 99.06) (xy 161.29 100.33)
 		)
 		(stroke
 			(width 0)
@@ -4052,7 +4052,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 100.33) (xy 167.64 100.33)
+			(xy 163.83 100.33) (xy 161.29 100.33)
 		)
 		(stroke
 			(width 0)
@@ -4662,7 +4662,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 92.71) (xy 167.64 93.98)
+			(xy 161.29 92.71) (xy 161.29 93.98)
 		)
 		(stroke
 			(width 0)
@@ -5452,7 +5452,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 100.33) (xy 167.64 101.6)
+			(xy 161.29 100.33) (xy 161.29 101.6)
 		)
 		(stroke
 			(width 0)
@@ -6703,6 +6703,29 @@
 			"oooA/9k="
 		)
 	)
+	(text_box "Calculations:\nBattery\nmax 4.2V per Cell\nmax S4 batteries aka 16,8V\n-> bat_volt measurement till 20V\n\nMax voltage ADC: 3V\n-> Voltage divider of 6.66667\n\nResulution ADC uC:\n12bit -> 4096 steps\n4096 steps at 3V ~ 0,73mV/Stemp\n\nResolution V_Bat measurement:\n6,1 * 0,73mV ~ 4,453mV"
+		(exclude_from_sim no)
+		(at 175.895 87.63 0)
+		(size 37.465 33.655)
+		(stroke
+			(width -0.0001)
+			(type default)
+			(color 255 255 0 1)
+		)
+		(fill
+			(type color)
+			(color 194 194 0 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(italic yes)
+				(color 0 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "c71fa817-1823-4d58-821f-9a713eb8f1ed")
+	)
 	(text "uC"
 		(exclude_from_sim no)
 		(at 21.844 18.288 0)
@@ -6967,17 +6990,6 @@
 		)
 		(uuid "a9991694-ccdc-4bd6-a9bd-25dcb789ce6d")
 	)
-	(label "I2C1_SCL"
-		(at 193.04 107.95 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "aab54f43-fd20-4813-ac0d-78111bc9fc97")
-	)
 	(label "RCC_OSC_IN"
 		(at 58.42 48.26 180)
 		(fields_autoplaced yes)
@@ -7067,7 +7079,7 @@
 		(uuid "e5ea4131-06e3-44cb-ae87-c8f963ab6411")
 	)
 	(label "V_Bat_Div"
-		(at 170.18 100.33 0)
+		(at 163.83 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7076,17 +7088,6 @@
 			(justify left bottom)
 		)
 		(uuid "e716d140-8917-4d1c-902f-597fa3837467")
-	)
-	(label "I2C1_SDA"
-		(at 193.04 110.49 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ed9c9681-5eb9-4793-be93-55a636dc64bb")
 	)
 	(label "USB_D-"
 		(at 101.6 71.12 0)
@@ -7362,7 +7363,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 167.64 96.52 180)
+		(at 161.29 96.52 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7370,15 +7371,15 @@
 		(dnp no)
 		(uuid "0deef164-7fe7-45c2-9584-64b066bf960f")
 		(property "Reference" "R7"
-			(at 163.83 95.758 0)
+			(at 157.48 95.758 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "TODO"
-			(at 163.83 97.79 0)
+		(property "Value" "5.1k"
+			(at 157.48 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7386,7 +7387,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 167.64 96.52 0)
+			(at 161.29 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7395,7 +7396,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 96.52 0)
+			(at 161.29 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7404,7 +7405,7 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 167.64 96.52 0)
+			(at 161.29 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7625,7 +7626,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 254 41.656 0)
 			(effects
 				(font
@@ -7897,7 +7898,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "12p"
 			(at 53.594 168.148 0)
 			(effects
 				(font
@@ -8580,7 +8581,7 @@
 	)
 	(symbol
 		(lib_id "power:+6V")
-		(at 167.64 92.71 0)
+		(at 161.29 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8589,7 +8590,7 @@
 		(fields_autoplaced yes)
 		(uuid "577c8268-2821-4eaf-b10f-049ab0f2905f")
 		(property "Reference" "#PWR023"
-			(at 167.64 96.52 0)
+			(at 161.29 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8598,7 +8599,7 @@
 			)
 		)
 		(property "Value" "V_Bat"
-			(at 167.64 87.63 0)
+			(at 161.29 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8606,7 +8607,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 92.71 0)
+			(at 161.29 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8615,7 +8616,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 92.71 0)
+			(at 161.29 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8624,7 +8625,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+6V\""
-			(at 167.64 92.71 0)
+			(at 161.29 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8728,7 +8729,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "22k"
 			(at 238.76 41.656 0)
 			(effects
 				(font
@@ -8847,7 +8848,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 167.64 104.14 180)
+		(at 161.29 104.14 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8855,15 +8856,15 @@
 		(dnp no)
 		(uuid "77a94cf6-6d8a-473a-a2b2-ea7254afec64")
 		(property "Reference" "R8"
-			(at 163.576 103.378 0)
+			(at 157.226 103.378 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "TODO"
-			(at 163.576 105.664 0)
+		(property "Value" "1k"
+			(at 157.226 105.664 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8871,7 +8872,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 167.64 104.14 0)
+			(at 161.29 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8880,7 +8881,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 104.14 0)
+			(at 161.29 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8889,7 +8890,7 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 167.64 104.14 0)
+			(at 161.29 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9297,7 +9298,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "12p"
 			(at 65.786 168.148 0)
 			(effects
 				(font
@@ -10341,7 +10342,7 @@
 				)
 			)
 		)
-		(property "Value" "TODO"
+		(property "Value" "1k"
 			(at 130.81 74.676 0)
 			(effects
 				(font
@@ -10726,7 +10727,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 167.64 107.95 0)
+		(at 161.29 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10735,7 +10736,7 @@
 		(fields_autoplaced yes)
 		(uuid "f3330faa-8b99-4221-80f8-6796f3ffe815")
 		(property "Reference" "#PWR026"
-			(at 167.64 114.3 0)
+			(at 161.29 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10744,7 +10745,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 167.64 113.03 0)
+			(at 161.29 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10753,7 +10754,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 107.95 0)
+			(at 161.29 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10762,7 +10763,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 107.95 0)
+			(at 161.29 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10771,7 +10772,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 167.64 107.95 0)
+			(at 161.29 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)

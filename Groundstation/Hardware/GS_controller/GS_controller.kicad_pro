@@ -529,7 +529,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "GS_controller.step",
       "svg": "",
       "vrml": ""
     },

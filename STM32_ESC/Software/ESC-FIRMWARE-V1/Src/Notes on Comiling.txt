@@ -1,0 +1,14 @@
+For installing
+- Install all dependendies of STM32 vsc plugin
+- Use CubeMX to generate Prjekt as CMAKE and as CubeIDE (no root)
+- replace {workspace}\STM32L412CBUx_FLASH.ld with {workspace}\STM32CubeIDE\STM32L412CBUX_FLASH.ld
+  (for more infos: https://community.st.com/t5/stm32cubemx-mcus/flash-ld-syntax-error-when-upgrading-to-cubemx-v6-12-1/td-p/722343)
+
+For flashing via DFU
+- Build projekt
+- set boot0 high and reset -> dfu mode
+- flash via cubeProgrammer
+- set boot0 and reset
+
+For virtual Com
+- use debug.c for printf()

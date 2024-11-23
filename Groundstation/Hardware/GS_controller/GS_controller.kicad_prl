@@ -78,6 +78,31 @@
     "version": 3
   },
   "project": {
-    "files": []
+    "files": [
+      {
+        "name": "GS_controller.kicad_sch",
+        "open": true,
+        "window": {
+          "display": 0,
+          "maximized": false,
+          "pos_x": 1,
+          "pos_y": 1,
+          "size_x": 1918,
+          "size_y": 1006
+        }
+      },
+      {
+        "name": "GS_controller.kicad_pcb",
+        "open": true,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": -11,
+          "pos_y": -11,
+          "size_x": 1942,
+          "size_y": 1030
+        }
+      }
+    ]
   }
 }

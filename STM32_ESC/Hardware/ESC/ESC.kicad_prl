@@ -80,20 +80,8 @@
   "project": {
     "files": [
       {
-        "name": "ESC.kicad_sch",
-        "open": true,
-        "window": {
-          "display": 0,
-          "maximized": false,
-          "pos_x": 1,
-          "pos_y": 1,
-          "size_x": 1918,
-          "size_y": 1006
-        }
-      },
-      {
         "name": "ESC.kicad_pcb",
-        "open": true,
+        "open": false,
         "window": {
           "display": 0,
           "maximized": true,
@@ -104,7 +92,7 @@
         }
       },
       {
-        "name": "ESC.kicad_pro",
+        "name": "ESC.kicad_sch",
         "open": false,
         "window": {
           "display": 0,

@@ -16,7 +16,7 @@
                 "${workspaceFolder}/Drivers/**",
                 "${workspaceFolder}/Middlewares/**",
                 "${workspaceFolder}/Src/**"
-            ],
+            ]
         }
     ]
 }

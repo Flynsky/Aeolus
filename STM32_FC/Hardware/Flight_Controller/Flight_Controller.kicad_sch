@@ -439,10 +439,10 @@
 		)
 		(uuid "fdbba5e1-cfcb-4ff7-9cd0-91bdea8b474f")
 	)
-	(text_box "Known Design Errors:\nCom Quarz footprint is wrong\n"
+	(text_box "Known Design Errors:\n- Com Quarz footprint is wrong\n- USB diode to 5V line not Vbat\n- Missing Boot0 button as well as reset\n- Battery labeling switched\n"
 		(exclude_from_sim no)
 		(at 226.06 29.845 0)
-		(size 37.465 33.655)
+		(size 46.99 17.145)
 		(stroke
 			(width -0.0001)
 			(type default)

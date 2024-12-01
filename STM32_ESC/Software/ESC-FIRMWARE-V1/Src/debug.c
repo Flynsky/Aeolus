@@ -1,3 +1,5 @@
+#ifndef DEBUG_C
+#define DEBUG_C
 
 #include "main.h"
 #include <stdio.h>    
@@ -7,7 +9,9 @@
 int _write(int file, char *data, int len);
 
 int _write(int file, char *data, int len) {
-    file = 0;
-    CDC_Transmit_FS((uint8_t *)data, len); // Send data over USB CDC
+    (void)file;
+    CDC_Transmit_FS((unsigned char *)data, len); // Send data over USB CDC
     return len; // Indicate how many bytes were written
 }
+
+#endif

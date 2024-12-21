@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"usbd_cdc.h": "c",
+			"main.h": "c",
+			"compare": "c",
+			"icm42670p.h": "c"
+		}
+	}
+}

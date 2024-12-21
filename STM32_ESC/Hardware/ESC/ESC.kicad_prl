@@ -78,31 +78,6 @@
     "version": 3
   },
   "project": {
-    "files": [
-      {
-        "name": "ESC.kicad_pcb",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": -11,
-          "pos_y": -11,
-          "size_x": 1942,
-          "size_y": 1030
-        }
-      },
-      {
-        "name": "ESC.kicad_sch",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": -11,
-          "pos_y": -11,
-          "size_x": 1942,
-          "size_y": 1030
-        }
-      }
-    ]
+    "files": []
   }
 }

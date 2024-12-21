@@ -1,0 +1,5 @@
+C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/CMakeFiles/FC_FIMWARE_V1.dir
+C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/CMakeFiles/edit_cache.dir
+C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/CMakeFiles/rebuild_cache.dir
+C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

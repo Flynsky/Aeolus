@@ -83,7 +83,7 @@
     "files": [
       {
         "name": "Flight_Controller.kicad_sch",
-        "open": false,
+        "open": true,
         "window": {
           "display": 0,
           "maximized": false,
@@ -91,6 +91,18 @@
           "pos_y": 1,
           "size_x": 1918,
           "size_y": 1006
+        }
+      },
+      {
+        "name": "Flight_Controller.kicad_pro",
+        "open": false,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": -22,
+          "pos_y": -22,
+          "size_x": 1942,
+          "size_y": 1030
         }
       }
     ]

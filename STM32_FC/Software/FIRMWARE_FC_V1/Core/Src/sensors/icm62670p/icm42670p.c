@@ -235,7 +235,7 @@ struct icm_data *icm_read_data(void)
     icm_read_reg(GYRO_DATA_Z0, (uint8_t *)&GYRO_DATA_Z_RAW + 1, 1); // lower bytes -> +1 in adress
     icm_read_reg(GYRO_DATA_Z1, (uint8_t *)&GYRO_DATA_Z_RAW, 1);     // upper byte -> right adress
 
-    int16_t TEMP_RAW;
+    uint16_t TEMP_RAW;
     icm_read_reg(TEMP_DATA0, (uint8_t *)&TEMP_RAW + 1, 1); // lower bytes -> +1 in adresS
     icm_read_reg(TEMP_DATA1, (uint8_t *)&TEMP_RAW, 1);     // upper byte -> right adress
 
@@ -251,6 +251,7 @@ struct icm_data *icm_read_data(void)
     data->GYRO_DATA_Z = (float)(GYRO_DATA_Z_RAW * GYRO_DEG_PER_SECOND_MAX) / nINT_16;
 
     data->TEMP = ((float)TEMP_RAW / 128.0) + 25.0;
+    // data->TEMP = (data->TEMP - 32) / 1.8; //from F to C
 
     debugf(">TEMP_RAW:%d§steps\n", TEMP_RAW);
     // debugf(">ACCEL_X_RAW:%d§steps\n", ACCEL_DATA_X_RAW);
@@ -314,7 +315,7 @@ void icm_print_data(struct icm_data *data)
         ">GYRO_Y:%.2f§deg/s\n"
         ">GYRO_Z:%.2f§deg/s\n"
         ">TEMP:%.0f§°C\n"
-        ">POS_X:%.2f§deg\n"
+        ">POS_X:%.2f§m\n"
         ">DEG_X:%.2f§deg\n",
         data->ACCEL_DATA_X,
         data->ACCEL_DATA_Y,

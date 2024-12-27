@@ -8,6 +8,7 @@
 #include "icm42670p.h"
 #include "../../debug.c"
 
+extern TIM_HandleTypeDef htim2;
 struct icm_data;
 
 static void icm_CS(uint8_t status);
@@ -22,6 +23,7 @@ void icm_init()
     case ACCEL_MODE_LOWNOISE:
         icm_write_reg(PWR_MGMT0, 0b00001111); // ACCEL and Gyro in low Noise mode
         break;
+
     case ACCEL_MODE_LOWPOWER:
         icm_write_reg(PWR_MGMT0, 0b00001111); // ACCEL in Low power and Gyro in low Noise mode
         break;
@@ -208,11 +210,22 @@ struct icm_data *icm_read_data(void)
     // create container
     struct icm_data *data = (struct icm_data *)malloc(sizeof(struct icm_data));
 
-    // timestamp
-    static uint32_t last_timestamp = 0;
-    uint32_t now_timestamp = HAL_GetTick();
-    uint32_t delta_time = now_timestamp - last_timestamp;
-    data->TIMESTAMP = now_timestamp;
+    // timestamp in us
+    static uint32_t last_timestamp = 0;                     // in us
+    uint32_t now_timestamp = __HAL_TIM_GET_COUNTER(&htim2); // in us
+    data->TIMESTAMP = now_timestamp;                        // perhaos more likeay HAL_gettick()
+    uint32_t delta_time;                                    // in us
+
+    if (now_timestamp >= last_timestamp)
+    {
+        delta_time = now_timestamp - last_timestamp;
+    }
+    else
+    {
+        // Handle counter overflow
+        const uint32_t nTimerMax = 4294967296 - 1;
+        delta_time = (nTimerMax - last_timestamp) + now_timestamp + 1;
+    }
 
     // reads raw data in
     int16_t ACCEL_DATA_X_RAW;
@@ -257,12 +270,18 @@ struct icm_data *icm_read_data(void)
     // debugf(">ACCEL_X_RAW:%d§steps\n", ACCEL_DATA_X_RAW);
     // debugf(">ACCEL_X_FLOAT:%f§oi\n", data->ACCEL_DATA_X);
 
-    // calculate position
-    static float POS_X = 0;
+    // calculate velocity
+    static float VELO_X = 0;
     static float last_acc_x = 0;
 
-    POS_X += (data->ACCEL_DATA_X - last_acc_x) / delta_time; // numerical integration
-    data->DEG_X = POS_X;
+    VELO_X += 1000000 * ((float)data->ACCEL_DATA_X - last_acc_x) / delta_time; // numerical integration. * 1000000 because deltatime is in us
+
+    // calculate position
+    static float POS_X = 0;
+    static float last_velo_x = 0;
+
+    POS_X += 1000000 * (VELO_X - last_velo_x) / delta_time; // numerical integration.  * 1000000 because deltatime is in us
+    data->POS_X = POS_X;
 
     // calculate rotation
     static float DEG_X = 0;
@@ -276,15 +295,18 @@ struct icm_data *icm_read_data(void)
     int T_PRINT = (int)1000.0 / FREQ_PRINT; // in ms
 
     static uint32_t last_print = 0;
-    if (last_print < now_timestamp)
+    if (last_print < HAL_GetTick())
     {
-        last_print = now_timestamp + T_PRINT;
+        last_print = HAL_GetTick() + T_PRINT;
         icm_print_data(data);
-        debugf(">IMU_FREQ:%.2f§Hz\n", (1000.0 / (float)delta_time));
+        debugf(">VELO_X:%f§Hz\n", VELO_X);
+        debugf(">IMU_FREQ:%.2f§Hz\n", (1000000.0 / (float)delta_time));
     }
 
     // reset last variables
     last_timestamp = now_timestamp;
+    last_acc_x = (float)data->ACCEL_DATA_X;
+    last_velo_x = VELO_X;
     last_gyro_x = data->GYRO_DATA_X;
 
     return data;
@@ -308,14 +330,14 @@ void icm_print_data(struct icm_data *data)
 
     // Format the sensor data as key=value pairs
     debugf(
-        ">ACCEL_X:%.2f§g/s\n"
+        ">ACCEL_X:%f§g/s\n"
         ">ACCEL_Y:%.2f§g/s\n"
         ">ACCEL_Z:%.2f§g/s\n"
-        ">GYRO_X:%.2f§deg/s\n"
+        ">GYRO_X:%f§deg/s\n"
         ">GYRO_Y:%.2f§deg/s\n"
         ">GYRO_Z:%.2f§deg/s\n"
         ">TEMP:%.0f§°C\n"
-        ">POS_X:%.2f§m\n"
+        ">POS_X:%f§mm\n"
         ">DEG_X:%.2f§deg\n",
         data->ACCEL_DATA_X,
         data->ACCEL_DATA_Y,
@@ -324,7 +346,7 @@ void icm_print_data(struct icm_data *data)
         data->GYRO_DATA_Y,
         data->GYRO_DATA_Z,
         data->TEMP,
-        data->POS_X,
+        data->POS_X*1000,
         data->DEG_X);
 
     // debugf(">ACCEL_X:%f§dp/s", data->ACCEL_DATA_X);

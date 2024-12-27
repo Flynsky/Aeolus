@@ -19,7 +19,7 @@ enum ICM_CONFIG
     ACCEL_G_2 = 2,  // sensitifit in g-force per second. (binary: 01100000)(hex:0x60)
     ACCEL_G_4 = 4,  // sensitifit in g-force per second. (binary: 01000000)(hex:0x40)
     ACCEL_G_8 = 8,  // sensitifit in g-force per second. (binary: 00100000)(hex:0x20)
-    ACCEL_G_16 = 0, // sensitifit in g-force per second. (binary: 00000000)(hex:0x00)
+    ACCEL_G_16 = 16, // sensitifit in g-force per second. (binary: 00000000)(hex:0x00)
 
     ICM_ODR_1_6kHz = 0x05, // Output Data Rate 1.6kHz (binary: 000000101)
     ICM_ODR_400Hz = 0x1F,  // Output Data Rate 400Hz (binary: 00000111)
@@ -29,9 +29,9 @@ enum ICM_CONFIG
 } ICM_CONFIG;
 
 const uint8_t ACCEL_MODE = ACCEL_MODE_LOWPOWER; // 1 = LOW
-const int GYRO_DEG_PER_SECOND_MAX = GYRO_DEG_2000;
+const int GYRO_DEG_PER_SECOND_MAX = GYRO_DEG_1000;
 const int ACCEL_G_PER_SECOND_MAX = ACCEL_G_8;
-const uint8_t ICM_ODR = (uint8_t)ICM_ODR_1_6kHz;
+const uint8_t ICM_ODR = (uint8_t)ICM_ODR_400Hz;
 
 void icm_init();
 void icm_read_reg(const uint8_t reg_adress, uint8_t *taget_adress, uint16_t size);

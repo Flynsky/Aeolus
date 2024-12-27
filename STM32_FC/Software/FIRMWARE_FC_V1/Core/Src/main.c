@@ -121,8 +121,6 @@ int main(void)
     // HAL_Delay(20);
     HAL_GPIO_TogglePin(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
 
-    HAL_Delay(10);
-
     struct icm_data *data = icm_read_data();
     free(data);
 

@@ -1,0 +1,227 @@
+{
+   "widgets": [
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ANGLE Y",
+               "sourceNames": [
+                  "ANGLE Y"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ANGLE Y",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "ANGLE X",
+               "sourceNames": [
+                  "ANGLE X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ANGLE X",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "ANGLE Z",
+               "sourceNames": [
+                  "ANGLE Z"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ANGLE Z",
+                  "stroke": "rgba(46,204,113,1)",
+                  "fill": "rgba(46,204,113,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ACCELERO  X",
+               "sourceNames": [
+                  "ACCELERO  X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCELERO  X",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "ACCELERO Y",
+               "sourceNames": [
+                  "ACCELERO Y"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCELERO Y",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "ACCELERO Z",
+               "sourceNames": [
+                  "ACCELERO Z"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCELERO Z",
+                  "stroke": "rgba(46,204,113,1)",
+                  "fill": "rgba(46,204,113,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "GYRO X",
+               "sourceNames": [
+                  "GYRO X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO X",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "GYRO Y",
+               "sourceNames": [
+                  "GYRO Y"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO Y",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "GYRO Z",
+               "sourceNames": [
+                  "GYRO Z"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO Z",
+                  "stroke": "rgba(46,204,113,1)",
+                  "fill": "rgba(46,204,113,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "p",
+               "sourceNames": [
+                  "p"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "p",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "i",
+               "sourceNames": [
+                  "i"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "i",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "d",
+               "sourceNames": [
+                  "d"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "d",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      }
+   ],
+   "viewDuration": "15"
+}

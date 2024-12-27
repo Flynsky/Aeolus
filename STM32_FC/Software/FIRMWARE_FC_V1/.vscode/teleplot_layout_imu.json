@@ -1,0 +1,187 @@
+{
+   "widgets": [
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ACCEL_X",
+               "sourceNames": [
+                  "ACCEL_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCEL_X",
+                  "_id": "data-serie-3",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ACCEL_Y",
+               "sourceNames": [
+                  "ACCEL_Y"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCEL_Y",
+                  "_id": "data-serie-4",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ACCEL_Z",
+               "sourceNames": [
+                  "ACCEL_Z"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCEL_Z",
+                  "_id": "data-serie-5",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "GYRO_X",
+               "sourceNames": [
+                  "GYRO_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO_X",
+                  "_id": "data-serie-6",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "GYRO_Y",
+               "sourceNames": [
+                  "GYRO_Y"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO_Y",
+                  "_id": "data-serie-7",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "GYRO_Z",
+               "sourceNames": [
+                  "GYRO_Z"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO_Z",
+                  "_id": "data-serie-8",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "TEMP",
+               "sourceNames": [
+                  "TEMP"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "TEMP",
+                  "_id": "data-serie-9",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "°C",
+               "type": "number"
+            }
+         ]
+      }
+   ],
+   "viewDuration": "30"
+}

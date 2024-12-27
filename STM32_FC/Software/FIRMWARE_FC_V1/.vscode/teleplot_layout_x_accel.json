@@ -1,0 +1,185 @@
+{
+   "widgets": [
+      {
+         "type": "single_value_number",
+         "gridPos": {
+            "h": 4,
+            "w": 2,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "IMU_FREQ",
+               "sourceNames": [
+                  "IMU_FREQ"
+               ],
+               "formula": "",
+               "options": {
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "Hz",
+               "type": "number"
+            }
+         ],
+         "precision_mode": 0
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 10,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "ACCEL_X",
+               "sourceNames": [
+                  "ACCEL_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "ACCEL_X",
+                  "_id": "data-serie-28",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "single_value_number",
+         "gridPos": {
+            "h": 4,
+            "w": 2,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "TEMP",
+               "sourceNames": [
+                  "TEMP"
+               ],
+               "formula": "",
+               "options": {
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "°C",
+               "type": "number"
+            }
+         ],
+         "precision_mode": 0
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 10,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "GYRO_X",
+               "sourceNames": [
+                  "GYRO_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "GYRO_X",
+                  "_id": "data-serie-26",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "dp/s",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "DEG_X",
+               "sourceNames": [
+                  "DEG_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "DEG_X",
+                  "_id": "data-serie-30",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "deg",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "POS_X",
+               "sourceNames": [
+                  "POS_X"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "POS_X",
+                  "_id": "data-serie-32",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "deg",
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "TEMP_RAW",
+               "sourceNames": [
+                  "TEMP_RAW"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "TEMP_RAW",
+                  "_id": "data-serie-33",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "unit": "steps",
+               "type": "number"
+            }
+         ]
+      }
+   ],
+   "viewDuration": "15"
+}

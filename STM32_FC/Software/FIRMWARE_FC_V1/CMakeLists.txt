@@ -83,7 +83,6 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 )
 
 # Add a custom command to run after the target is built
-# Add a custom command to run after the target is built
 add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME}
     POST_BUILD
@@ -91,3 +90,15 @@ add_custom_command(
     COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
     COMMENT "Uploading firmware using dfu-util"
 )
+
+# Enable hardware floating-point support in the compiler (if applicable)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
+
+# Add the linker flag to enable floating-point support in printf
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float")
+
+# Link the math library to support floating-point operations
+target_link_libraries(${PROJECT_NAME} m)
+
+# Allow GCC extensions (binary literals, etc.)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")

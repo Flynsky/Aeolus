@@ -15,15 +15,72 @@ static void icm_CS(uint8_t status);
 void icm_init()
 {
     uint8_t buffer;
-    // power on ACCEL and Gyro in low Noise mode
-    icm_write_reg(PWR_MGMT0, 0b00001111);
 
-    // sets gyro 2000ps and 1.6kHz;
-    icm_write_reg(GYRO_CONFIG0, 0b00000101);
+    // Power On
+    switch (ACCEL_MODE)
+    {
+    case ACCEL_MODE_LOWNOISE:
+        icm_write_reg(PWR_MGMT0, 0b00001111); // ACCEL and Gyro in low Noise mode
+        break;
+    case ACCEL_MODE_LOWPOWER:
+        icm_write_reg(PWR_MGMT0, 0b00001111); // ACCEL in Low power and Gyro in low Noise mode
+        break;
 
-    // sets accel 16g and 1.6kHz;
-    icm_write_reg(GYRO_CONFIG0, 0b00000101);
+    default:
+        break;
+    }
 
+    // ACCELEROMETER
+    switch (ACCEL_G_PER_SECOND_MAX)
+    {
+    case ACCEL_G_2:
+        icm_write_reg(ACCEL_CONFIG0, 0x60 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case ACCEL_G_4:
+        icm_write_reg(ACCEL_CONFIG0, 0x40 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case ACCEL_G_8:
+        icm_write_reg(ACCEL_CONFIG0, 0x20 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case ACCEL_G_16:
+        icm_write_reg(ACCEL_CONFIG0, 0 + ICM_ODR); // sets accel range and data output;
+        break;
+    default:
+        break;
+    }
+
+    icm_write_reg(ACCEL_CONFIG1, 0b01110111); // set accel low pass & averaging
+
+    // GYRO
+    switch (GYRO_DEG_PER_SECOND_MAX)
+    {
+    case GYRO_DEG_250:
+        icm_write_reg(ACCEL_CONFIG0, 0x60 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case GYRO_DEG_500:
+        icm_write_reg(ACCEL_CONFIG0, 0x40 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case GYRO_DEG_1000:
+        icm_write_reg(ACCEL_CONFIG0, 0x20 + ICM_ODR); // sets accel range and data output;
+        break;
+
+    case GYRO_DEG_2000:
+        icm_write_reg(ACCEL_CONFIG0, 0x00 + ICM_ODR); // sets accel range and data output;
+        break;
+    default:
+        break;
+    }
+
+    // set gyro low pass
+    icm_write_reg(GYRO_CONFIG1, 0b00000111);
+
+    // set temp lowpass
+    icm_write_reg(TEMP_CONFIG0, 0b01110000);
     // configs FIFO
 
     // sends who i am
@@ -52,7 +109,7 @@ void icm_CS(uint8_t status)
  * reads out one register.
  * does set CS
  */
-void icm_read_reg(const uint8_t reg_adress, const uint8_t *taget_adress, const uint8_t size)
+void icm_read_reg(const uint8_t reg_adress, uint8_t *taget_adress, uint16_t size)
 {
     // catch errors
     if (size <= 0)
@@ -151,37 +208,131 @@ struct icm_data *icm_read_data(void)
     // create container
     struct icm_data *data = (struct icm_data *)malloc(sizeof(struct icm_data));
 
-    // reads data in
-    icm_read_reg(ACCEL_DATA_X0, (uint8_t *)&data->ACCEL_DATA_X+1, 1); // lower bytes -> +1 in adress
-    icm_read_reg(ACCEL_DATA_X1, (uint8_t *)&data->ACCEL_DATA_X, 1);       // upper byte -> right adress
-    icm_read_reg(ACCEL_DATA_Y0, (uint8_t *)(&data->ACCEL_DATA_Y + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(ACCEL_DATA_Y1, (uint8_t *)&data->ACCEL_DATA_Y, 1);       // upper byte -> right adress
-    icm_read_reg(ACCEL_DATA_Z0, (uint8_t *)(&data->ACCEL_DATA_Z + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(ACCEL_DATA_Z1, (uint8_t *)&data->ACCEL_DATA_Z, 1);       // upper byte -> right adress
+    // timestamp
+    static uint32_t last_timestamp = 0;
+    uint32_t now_timestamp = HAL_GetTick();
+    uint32_t delta_time = now_timestamp - last_timestamp;
+    data->TIMESTAMP = now_timestamp;
 
-    icm_read_reg(GYRO_DATA_X0, (uint8_t *)(&data->GYRO_DATA_X + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(GYRO_DATA_X1, (uint8_t *)&data->GYRO_DATA_X, 1);       // upper byte -> right adress
-    icm_read_reg(GYRO_DATA_Y0, (uint8_t *)(&data->GYRO_DATA_Y + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(GYRO_DATA_Y1, (uint8_t *)&data->GYRO_DATA_Y, 1);       // upper byte -> right adress
-    icm_read_reg(GYRO_DATA_Z0, (uint8_t *)(&data->GYRO_DATA_Z + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(GYRO_DATA_Z1, (uint8_t *)&data->GYRO_DATA_Z, 1);       // upper byte -> right adress
+    // reads raw data in
+    int16_t ACCEL_DATA_X_RAW;
+    int16_t ACCEL_DATA_Y_RAW;
+    int16_t ACCEL_DATA_Z_RAW;
+    icm_read_reg(ACCEL_DATA_X0, (uint8_t *)&ACCEL_DATA_X_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_X1, (uint8_t *)&ACCEL_DATA_X_RAW, 1);     // upper byte -> right adress
+    icm_read_reg(ACCEL_DATA_Y0, (uint8_t *)&ACCEL_DATA_Y_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_Y1, (uint8_t *)&ACCEL_DATA_Y_RAW, 1);     // upper byte -> right adress
+    icm_read_reg(ACCEL_DATA_Z0, (uint8_t *)&ACCEL_DATA_Z_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_Z1, (uint8_t *)&ACCEL_DATA_Z_RAW, 1);     // upper byte -> right adress
 
-    icm_read_reg(TEMP_DATA0,(uint8_t *)(&data->TEMP + 1), 1); // lower bytes -> +1 in adress
-    icm_read_reg(TEMP_DATA1, (uint8_t *)&data->TEMP, 1);     // upper byte -> right adress
+    int16_t GYRO_DATA_X_RAW;
+    int16_t GYRO_DATA_Z_RAW;
+    int16_t GYRO_DATA_Y_RAW;
+    icm_read_reg(GYRO_DATA_X0, (uint8_t *)&GYRO_DATA_X_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_X1, (uint8_t *)&GYRO_DATA_X_RAW, 1);     // upper byte -> right adress
+    icm_read_reg(GYRO_DATA_Y0, (uint8_t *)&GYRO_DATA_Y_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_Y1, (uint8_t *)&GYRO_DATA_Y_RAW, 1);     // upper byte -> right adress
+    icm_read_reg(GYRO_DATA_Z0, (uint8_t *)&GYRO_DATA_Z_RAW + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_Z1, (uint8_t *)&GYRO_DATA_Z_RAW, 1);     // upper byte -> right adress
 
-    // Debugfs
-    debugf("ACCEL|");
-    debugf("X:%i|", data->ACCEL_DATA_X);
-    debugf("Y:%i|", data->ACCEL_DATA_Y);
-    debugf("Z:%i|\n", data->ACCEL_DATA_Z);
+    int16_t TEMP_RAW;
+    icm_read_reg(TEMP_DATA0, (uint8_t *)&TEMP_RAW + 1, 1); // lower bytes -> +1 in adresS
+    icm_read_reg(TEMP_DATA1, (uint8_t *)&TEMP_RAW, 1);     // upper byte -> right adress
 
-    HAL_Delay(1);
+    // convert to degree / g per s
+    const float nINT_16 = 32768.0 - 1.0; // max size +/- int_16
 
-    debugf("GYRO|");
-    debugf("X:%i|", data->GYRO_DATA_X);
-    debugf("Y:%i|", data->GYRO_DATA_Y);
-    debugf("Z:%i|", data->GYRO_DATA_Z);
-    debugf("\n");
+    data->ACCEL_DATA_X = (float)(ACCEL_DATA_X_RAW * ACCEL_G_PER_SECOND_MAX) / nINT_16;
+    data->ACCEL_DATA_Y = (float)(ACCEL_DATA_Y_RAW * ACCEL_G_PER_SECOND_MAX) / nINT_16;
+    data->ACCEL_DATA_Z = (float)(ACCEL_DATA_Z_RAW * ACCEL_G_PER_SECOND_MAX) / nINT_16;
+
+    data->GYRO_DATA_X = (float)(GYRO_DATA_X_RAW * GYRO_DEG_PER_SECOND_MAX) / nINT_16;
+    data->GYRO_DATA_Y = (float)(GYRO_DATA_Y_RAW * GYRO_DEG_PER_SECOND_MAX) / nINT_16;
+    data->GYRO_DATA_Z = (float)(GYRO_DATA_Z_RAW * GYRO_DEG_PER_SECOND_MAX) / nINT_16;
+
+    data->TEMP = ((float)TEMP_RAW / 128.0) + 25.0;
+
+    debugf(">TEMP_RAW:%d§steps\n", TEMP_RAW);
+    // debugf(">ACCEL_X_RAW:%d§steps\n", ACCEL_DATA_X_RAW);
+    // debugf(">ACCEL_X_FLOAT:%f§oi\n", data->ACCEL_DATA_X);
+
+    // calculate position
+    static float POS_X = 0;
+    static float last_acc_x = 0;
+
+    POS_X += (data->ACCEL_DATA_X - last_acc_x) / delta_time; // numerical integration
+    data->DEG_X = POS_X;
+
+    // calculate rotation
+    static float DEG_X = 0;
+    static float last_gyro_x = 0;
+
+    DEG_X += (data->GYRO_DATA_X - last_gyro_x) / delta_time; // numerical integration
+    data->DEG_X = DEG_X;
+
+    // debugf in the FREQ_PRINT Frequency
+    const float FREQ_PRINT = 5;             // in Hz
+    int T_PRINT = (int)1000.0 / FREQ_PRINT; // in ms
+
+    static uint32_t last_print = 0;
+    if (last_print < now_timestamp)
+    {
+        last_print = now_timestamp + T_PRINT;
+        icm_print_data(data);
+        debugf(">IMU_FREQ:%.2f§Hz\n", (1000.0 / (float)delta_time));
+    }
+
+    // reset last variables
+    last_timestamp = now_timestamp;
+    last_gyro_x = data->GYRO_DATA_X;
 
     return data;
+}
+
+void icm_print_data(struct icm_data *data)
+{
+    // // Debugfs
+    // debugf("ACCEL|");
+    // debugf("X:%i|", data->ACCEL_DATA_X);
+    // debugf("Y:%i|", data->ACCEL_DATA_Y);
+    // debugf("Z:%i|\n", data->ACCEL_DATA_Z);
+
+    // HAL_Delay(1);
+
+    // debugf("GYRO|");
+    // debugf("X:%i|", data->GYRO_DATA_X);
+    // debugf("Y:%i|", data->GYRO_DATA_Y);
+    // debugf("Z:%i|", data->GYRO_DATA_Z);
+    // debugf("\n");
+
+    // Format the sensor data as key=value pairs
+    debugf(
+        ">ACCEL_X:%.2f§g/s\n"
+        ">ACCEL_Y:%.2f§g/s\n"
+        ">ACCEL_Z:%.2f§g/s\n"
+        ">GYRO_X:%.2f§deg/s\n"
+        ">GYRO_Y:%.2f§deg/s\n"
+        ">GYRO_Z:%.2f§deg/s\n"
+        ">TEMP:%.0f§°C\n"
+        ">POS_X:%.2f§deg\n"
+        ">DEG_X:%.2f§deg\n",
+        data->ACCEL_DATA_X,
+        data->ACCEL_DATA_Y,
+        data->ACCEL_DATA_Z,
+        data->GYRO_DATA_X,
+        data->GYRO_DATA_Y,
+        data->GYRO_DATA_Z,
+        data->TEMP,
+        data->POS_X,
+        data->DEG_X);
+
+    // debugf(">ACCEL_X:%f§dp/s", data->ACCEL_DATA_X);
+    // debugf(">ACCEL_Y:%f§dp/s\n", data->ACCEL_DATA_Y);
+    // debugf(">ACCEL_Z:%f§dp/s\n", data->ACCEL_DATA_Z);
+
+    // debugf(">GYRO_X:%f§dp/s\n", data->GYRO_DATA_X);
+    // debugf(">GYRO_Y:%f§dp/s\n", data->GYRO_DATA_Y);
+    // debugf(">GYRO_Z:%f§dp/s\n", data->GYRO_DATA_Z);
+
+    // debugf(">TEMP:%f§°C\n", data->TEMP);
 }

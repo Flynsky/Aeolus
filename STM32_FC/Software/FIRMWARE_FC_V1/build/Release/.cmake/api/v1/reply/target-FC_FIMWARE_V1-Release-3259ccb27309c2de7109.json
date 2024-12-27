@@ -1,0 +1,842 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "FC_FIMWARE_V1.elf"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 38,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 101,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 68,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 54,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : " -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -std=gnu11 -O3 -DNDEBUG -std=gnu11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "STM32L412xx"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "USE_HAL_DRIVER"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core/Inc"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core/Src/sensors/icm62670p"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../X-CUBE-MEMS1/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../X-CUBE-TOF1/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../USB_DEVICE/App"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../USB_DEVICE/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Core/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/STM32L4xx_HAL_Driver/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32L4xx/Include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb/modules"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb/porting"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/iis2mdc"
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : " -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -x assembler-with-cpp -MMD -MP -O3 -DNDEBUG"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "STM32L412xx"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "USE_HAL_DRIVER"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core/Inc"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/Core/Src/sensors/icm62670p"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../X-CUBE-MEMS1/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../X-CUBE-TOF1/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../USB_DEVICE/App"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../USB_DEVICE/Target"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Core/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/STM32L4xx_HAL_Driver/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32L4xx/Include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb/modules"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb/porting"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/vl53l1cb"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/fgewi/Documents/Fynn/Projekte/Drone/Aeolus/STM32_FC/Software/FIRMWARE_FC_V1/cmake/stm32cubemx/../../Drivers/BSP/Components/iis2mdc"
+				}
+			],
+			"language" : "ASM",
+			"sourceIndexes" : 
+			[
+				66
+			]
+		}
+	],
+	"id" : "FC_FIMWARE_V1::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -Os -g0 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -std=gnu11 -O3 -DNDEBUG",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-u _printf_float",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "FC_FIMWARE_V1",
+	"nameOnDisk" : "FC_FIMWARE_V1.elf",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				66
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/main.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/custom_bus.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/stm32l4xx_it.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/stm32l4xx_hal_msp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "USB_DEVICE/App/usb_device.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "USB_DEVICE/App/usbd_desc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "USB_DEVICE/App/usbd_cdc_if.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "USB_DEVICE/Target/usbd_conf.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api_calibration.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api_core.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api_debug.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api_preset_modes.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_api_strings.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_core.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_core_support.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_dmax.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_error_strings.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_hist_algos_gen3.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_hist_algos_gen4.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_hist_char.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_hist_core.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_hist_funcs.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_nvm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_nvm_debug.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_register_funcs.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_sigma_estimate.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_silicon_core.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_wait.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_xtalk.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/modules/vl53l1_zone_presets.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/porting/vl53l1_platform.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/porting/vl53l1_platform_ipp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/porting/vl53l1_platform_log.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/vl53l1cb/vl53l1cb.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/iis2mdc/iis2mdc_reg.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/BSP/Components/iis2mdc/iis2mdc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_usb.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ramfunc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/system_stm32l4xx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/sysmem.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "Core/Src/syscalls.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "startup_stm32l412xx.s",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}

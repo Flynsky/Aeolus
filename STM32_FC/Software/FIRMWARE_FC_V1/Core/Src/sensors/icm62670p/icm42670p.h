@@ -6,25 +6,60 @@ SPI_HandleTypeDef *hspi_icm = &hspi2;
 
 const uint32_t SPI_TIMEOUT_ICM = 100;
 
+enum ICM_CONFIG
+{
+    ACCEL_MODE_LOWPOWER = 0,
+    ACCEL_MODE_LOWNOISE = 1,
+
+    GYRO_DEG_250 = 250,   // sensitifit in degres per second. (binary: 01100000))(hex:0x60)
+    GYRO_DEG_500 = 500,   // sensitifit in degres per second. (binary: 01000000))(hex:0x40)
+    GYRO_DEG_1000 = 1000, // sensitifit in degres per second. (binary: 00100000))(hex:0x20)
+    GYRO_DEG_2000 = 2000, // sensitifit in degres per second. (binary: 00000000))(hex:0x00)
+
+    ACCEL_G_2 = 2,  // sensitifit in g-force per second. (binary: 01100000)(hex:0x60)
+    ACCEL_G_4 = 4,  // sensitifit in g-force per second. (binary: 01000000)(hex:0x40)
+    ACCEL_G_8 = 8,  // sensitifit in g-force per second. (binary: 00100000)(hex:0x20)
+    ACCEL_G_16 = 0, // sensitifit in g-force per second. (binary: 00000000)(hex:0x00)
+
+    ICM_ODR_1_6kHz = 0x05, // Output Data Rate 1.6kHz (binary: 000000101)
+    ICM_ODR_400Hz = 0x1F,  // Output Data Rate 400Hz (binary: 00000111)
+    ICM_ODR_100Hz = 0x09,  // Output Data Rate 100Hz (binary: 00001001)
+    ICM_ODR_1_5Hz = 0x0F,  // Output Data Rate 1.5Hz (binary: 00001111)
+
+} ICM_CONFIG;
+
+const uint8_t ACCEL_MODE = ACCEL_MODE_LOWPOWER; // 1 = LOW
+const int GYRO_DEG_PER_SECOND_MAX = GYRO_DEG_2000;
+const int ACCEL_G_PER_SECOND_MAX = ACCEL_G_8;
+const uint8_t ICM_ODR = (uint8_t)ICM_ODR_1_6kHz;
+
 void icm_init();
-void icm_read_reg(const uint8_t reg_adress,const  uint8_t *taget_adress,const  uint8_t size);
+void icm_read_reg(const uint8_t reg_adress, uint8_t *taget_adress, uint16_t size);
 void icm_write_reg(const uint8_t reg_adress, const uint8_t data);
 
-
 struct icm_data *icm_read_data(void);
+void icm_print_data(struct icm_data *data);
 
 struct icm_data
 {
-    int16_t ACCEL_DATA_X;
-    int16_t ACCEL_DATA_Y;
-    int16_t ACCEL_DATA_Z;
+    float ACCEL_DATA_X;
+    float ACCEL_DATA_Y;
+    float ACCEL_DATA_Z;
 
-    int16_t GYRO_DATA_X;
-    int16_t GYRO_DATA_Y;
-    int16_t GYRO_DATA_Z;
+    float GYRO_DATA_X;
+    float GYRO_DATA_Y;
+    float GYRO_DATA_Z;
 
-    uint16_t TEMP;
-    uint16_t TIMESTAMP;
+    float DEG_X;
+    float DEG_Y;
+    float DEG_Z;
+
+    float POS_X;
+    float POS_Y;
+    float POS_Z;
+
+    float TEMP;
+    uint32_t TIMESTAMP
 };
 
 typedef enum icm_userbank_register

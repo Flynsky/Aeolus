@@ -8,13 +8,34 @@
 #include "icm42670p.h"
 #include "../../debug.c"
 
+struct icm_data;
+
 static void icm_CS(uint8_t status);
 
 void icm_init()
 {
-    icm_read_reg(117, 1);
+    uint8_t buffer;
+    // power on ACCEL and Gyro in low Noise mode
+    icm_write_reg(PWR_MGMT0, 0b00001111);
+
+    // sets gyro 2000ps and 1.6kHz;
+    icm_write_reg(GYRO_CONFIG0, 0b00000101);
+
+    // sets accel 16g and 1.6kHz;
+    icm_write_reg(GYRO_CONFIG0, 0b00000101);
+
+    // configs FIFO
+
+    // sends who i am
+
+    icm_read_reg(WHO_AM_I, &buffer, 1);
+    debugf("icm42670p 0x%x is initialised\n", buffer);
 }
 
+/**
+ * sets / clears CS for the ICM
+ * @param status SET:1 RESTET:0
+ */
 void icm_CS(uint8_t status)
 {
     if (status == 0)
@@ -27,15 +48,24 @@ void icm_CS(uint8_t status)
     }
 }
 
-uint8_t *icm_read_reg(uint8_t reg_adress, uint16_t size)
+/**
+ * reads out one register.
+ * does set CS
+ */
+void icm_read_reg(const uint8_t reg_adress, const uint8_t *taget_adress, const uint8_t size)
 {
+    // catch errors
+    if (size <= 0)
+    {
+        debugf("icm SPI read:SIZE<=0\n");
+    }
+
     // sets first bit to indicade reading
-    reg_adress = reg_adress | 0b10000000;
+    uint8_t reg_adress_bit = reg_adress | 0b10000000; // first bit needs to be placed as a read operator
 
     // send read command
     icm_CS(0);
-    HAL_StatusTypeDef ret = HAL_SPI_Transmit(hspi_icm, &reg_adress, 1, 100);
-    icm_CS(1);
+    HAL_StatusTypeDef ret = HAL_SPI_Transmit(hspi_icm, &reg_adress_bit, 1, SPI_TIMEOUT_ICM);
 
     switch (ret)
     {
@@ -55,13 +85,8 @@ uint8_t *icm_read_reg(uint8_t reg_adress, uint16_t size)
         break;
     }
 
-    // prepares buffer for answer
-    uint8_t *buffer = (uint8_t *)malloc(size);
-    HAL_Delay(10);
-
     // reads answer
-    icm_CS(0);
-    HAL_StatusTypeDef ret2 = HAL_SPI_Receive(hspi_icm, buffer, size, 100);
+    HAL_StatusTypeDef ret2 = HAL_SPI_Receive(hspi_icm, taget_adress, size, SPI_TIMEOUT_ICM);
     icm_CS(1);
 
     switch (ret2)
@@ -83,27 +108,23 @@ uint8_t *icm_read_reg(uint8_t reg_adress, uint16_t size)
     }
 
     // printf result
-    reg_adress = reg_adress & 0b01111111;
-    debugf("register %i reads: 0x", reg_adress);
-    for (int i = 0; i < size; i++)
-    {
-        debugf(" %x", buffer[i]);
-    }
-    debugf("\n");
-
-    return buffer;
+    // debugf("register %i reads: 0x", reg_adress);
+    // for (int i = 0; i < size; i++)
+    // {
+    //     debugf("%x ", taget_adress[i]);
+    // }
+    // debugf("\n");
 }
 
-void icm_write_reg(uint8_t reg_adress, uint8_t *data, uint8_t data_size)
+void icm_write_reg(const uint8_t reg_adress, const uint8_t data)
 {
-    uint8_t buffer[data_size + 1];
+    uint8_t buffer[2];
     buffer[0] = reg_adress;
-    for (int i = 0; i < data_size; i++)
-    {
-        buffer[i + 1] = data[i];
-    }
+    buffer[1] = data;
 
-    HAL_StatusTypeDef ret = HAL_SPI_Transmit(hspi_icm, buffer, data_size + 1, 100);
+    icm_CS(0);
+    HAL_StatusTypeDef ret = HAL_SPI_Transmit(hspi_icm, buffer, 2, SPI_TIMEOUT_ICM);
+    icm_CS(1);
 
     switch (ret)
     {
@@ -123,4 +144,44 @@ void icm_write_reg(uint8_t reg_adress, uint8_t *data, uint8_t data_size)
     default:
         break;
     }
+}
+
+struct icm_data *icm_read_data(void)
+{
+    // create container
+    struct icm_data *data = (struct icm_data *)malloc(sizeof(struct icm_data));
+
+    // reads data in
+    icm_read_reg(ACCEL_DATA_X0, (uint8_t *)&data->ACCEL_DATA_X+1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_X1, (uint8_t *)&data->ACCEL_DATA_X, 1);       // upper byte -> right adress
+    icm_read_reg(ACCEL_DATA_Y0, (uint8_t *)(&data->ACCEL_DATA_Y + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_Y1, (uint8_t *)&data->ACCEL_DATA_Y, 1);       // upper byte -> right adress
+    icm_read_reg(ACCEL_DATA_Z0, (uint8_t *)(&data->ACCEL_DATA_Z + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(ACCEL_DATA_Z1, (uint8_t *)&data->ACCEL_DATA_Z, 1);       // upper byte -> right adress
+
+    icm_read_reg(GYRO_DATA_X0, (uint8_t *)(&data->GYRO_DATA_X + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_X1, (uint8_t *)&data->GYRO_DATA_X, 1);       // upper byte -> right adress
+    icm_read_reg(GYRO_DATA_Y0, (uint8_t *)(&data->GYRO_DATA_Y + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_Y1, (uint8_t *)&data->GYRO_DATA_Y, 1);       // upper byte -> right adress
+    icm_read_reg(GYRO_DATA_Z0, (uint8_t *)(&data->GYRO_DATA_Z + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(GYRO_DATA_Z1, (uint8_t *)&data->GYRO_DATA_Z, 1);       // upper byte -> right adress
+
+    icm_read_reg(TEMP_DATA0,(uint8_t *)(&data->TEMP + 1), 1); // lower bytes -> +1 in adress
+    icm_read_reg(TEMP_DATA1, (uint8_t *)&data->TEMP, 1);     // upper byte -> right adress
+
+    // Debugfs
+    debugf("ACCEL|");
+    debugf("X:%i|", data->ACCEL_DATA_X);
+    debugf("Y:%i|", data->ACCEL_DATA_Y);
+    debugf("Z:%i|\n", data->ACCEL_DATA_Z);
+
+    HAL_Delay(1);
+
+    debugf("GYRO|");
+    debugf("X:%i|", data->GYRO_DATA_X);
+    debugf("Y:%i|", data->GYRO_DATA_Y);
+    debugf("Z:%i|", data->GYRO_DATA_Z);
+    debugf("\n");
+
+    return data;
 }

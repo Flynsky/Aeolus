@@ -28,7 +28,7 @@ enum ICM_CONFIG
 
 } ICM_CONFIG;
 
-const uint8_t ACCEL_MODE = ACCEL_MODE_LOWPOWER; // 1 = LOW
+const uint8_t ACCEL_MODE = ACCEL_MODE_LOWNOISE; // 1 = LOW
 const int GYRO_DEG_PER_SECOND_MAX = GYRO_DEG_1000;
 const int ACCEL_G_PER_SECOND_MAX = ACCEL_G_8;
 const uint8_t ICM_ODR = (uint8_t)ICM_ODR_400Hz;

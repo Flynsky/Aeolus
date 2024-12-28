@@ -54,7 +54,8 @@ void icm_init()
         break;
     }
 
-    icm_write_reg(ACCEL_CONFIG1, 0b01110111); // set accel low pass & averaging
+    // icm_write_reg(ACCEL_CONFIG1, 0b01110111); // set accel low pass & averaging
+    icm_write_reg(ACCEL_CONFIG1, 0x00);
 
     // GYRO
     switch (GYRO_DEG_PER_SECOND_MAX)
@@ -264,30 +265,28 @@ struct icm_data *icm_read_data(void)
     data->GYRO_DATA_Z = (float)(GYRO_DATA_Z_RAW * GYRO_DEG_PER_SECOND_MAX) / nINT_16;
 
     data->TEMP = ((float)TEMP_RAW / 128.0) + 25.0;
-    // data->TEMP = (data->TEMP - 32) / 1.8; //from F to C
 
-    debugf(">TEMP_RAW:%d§steps\n", TEMP_RAW);
+    // debugf(">TEMP_RAW:%d§steps\n", TEMP_RAW);
     // debugf(">ACCEL_X_RAW:%d§steps\n", ACCEL_DATA_X_RAW);
     // debugf(">ACCEL_X_FLOAT:%f§oi\n", data->ACCEL_DATA_X);
 
     // calculate velocity
     static float VELO_X = 0;
     static float last_acc_x = 0;
-
-    VELO_X += 1000000 * ((float)data->ACCEL_DATA_X - last_acc_x) / delta_time; // numerical integration. * 1000000 because deltatime is in us
+    VELO_X += 1000000.0 * ((float)data->ACCEL_DATA_X - last_acc_x) /(float) delta_time; // numerical integration. * 1000000 because deltatime is in us
 
     // calculate position
     static float POS_X = 0;
     static float last_velo_x = 0;
 
-    POS_X += 1000000 * (VELO_X - last_velo_x) / delta_time; // numerical integration.  * 1000000 because deltatime is in us
+    POS_X += 1000000.0 * (VELO_X - last_velo_x) / (float)delta_time; // numerical integration.  * 1000000 because deltatime is in us
     data->POS_X = POS_X;
 
     // calculate rotation
     static float DEG_X = 0;
     static float last_gyro_x = 0;
 
-    DEG_X += (data->GYRO_DATA_X - last_gyro_x) / delta_time; // numerical integration
+    DEG_X += (data->GYRO_DATA_X - last_gyro_x) /(float) delta_time; // numerical integration
     data->DEG_X = DEG_X;
 
     // debugf in the FREQ_PRINT Frequency
@@ -299,8 +298,8 @@ struct icm_data *icm_read_data(void)
     {
         last_print = HAL_GetTick() + T_PRINT;
         icm_print_data(data);
-        debugf(">VELO_X:%f§Hz\n", VELO_X);
-        debugf(">IMU_FREQ:%.2f§Hz\n", (1000000.0 / (float)delta_time));
+        debugf(">VELO_X:%f§m/s\n", VELO_X);
+        debugf(">IMU_FREQ:%.2f§Hz\n", 1000000.0/ (float)delta_time);
     }
 
     // reset last variables
@@ -314,48 +313,34 @@ struct icm_data *icm_read_data(void)
 
 void icm_print_data(struct icm_data *data)
 {
-    // // Debugfs
-    // debugf("ACCEL|");
-    // debugf("X:%i|", data->ACCEL_DATA_X);
-    // debugf("Y:%i|", data->ACCEL_DATA_Y);
-    // debugf("Z:%i|\n", data->ACCEL_DATA_Z);
-
-    // HAL_Delay(1);
-
-    // debugf("GYRO|");
-    // debugf("X:%i|", data->GYRO_DATA_X);
-    // debugf("Y:%i|", data->GYRO_DATA_Y);
-    // debugf("Z:%i|", data->GYRO_DATA_Z);
-    // debugf("\n");
-
     // Format the sensor data as key=value pairs
-    debugf(
-        ">ACCEL_X:%f§g/s\n"
-        ">ACCEL_Y:%.2f§g/s\n"
-        ">ACCEL_Z:%.2f§g/s\n"
-        ">GYRO_X:%f§deg/s\n"
-        ">GYRO_Y:%.2f§deg/s\n"
-        ">GYRO_Z:%.2f§deg/s\n"
-        ">TEMP:%.0f§°C\n"
-        ">POS_X:%f§mm\n"
-        ">DEG_X:%.2f§deg\n",
-        data->ACCEL_DATA_X,
-        data->ACCEL_DATA_Y,
-        data->ACCEL_DATA_Z,
-        data->GYRO_DATA_X,
-        data->GYRO_DATA_Y,
-        data->GYRO_DATA_Z,
-        data->TEMP,
-        data->POS_X*1000,
-        data->DEG_X);
+    // debugf(
+    //     ">ACCEL_X:%f§g/s\n"
+    //     ">ACCEL_Y:%.2f§g/s\n"
+    //     ">ACCEL_Z:%.2f§g/s\n"
+    //     ">GYRO_X:%f§deg/s\n"
+    //     ">GYRO_Y:%.2f§deg/s\n"
+    //     ">GYRO_Z:%.2f§deg/s\n"
+    //     ">TEMP:%.0f§°C\n"
+    //     ">POS_X:%f§mm\n"
+    //     ">DEG_X:%.2f§deg\n",
+    //     data->ACCEL_DATA_X,
+    //     data->ACCEL_DATA_Y,
+    //     data->ACCEL_DATA_Z,
+    //     data->GYRO_DATA_X,
+    //     data->GYRO_DATA_Y,
+    //     data->GYRO_DATA_Z,
+    //     data->TEMP,
+    //     data->POS_X * 1000,
+    //     data->DEG_X);
 
-    // debugf(">ACCEL_X:%f§dp/s", data->ACCEL_DATA_X);
-    // debugf(">ACCEL_Y:%f§dp/s\n", data->ACCEL_DATA_Y);
-    // debugf(">ACCEL_Z:%f§dp/s\n", data->ACCEL_DATA_Z);
-
-    // debugf(">GYRO_X:%f§dp/s\n", data->GYRO_DATA_X);
-    // debugf(">GYRO_Y:%f§dp/s\n", data->GYRO_DATA_Y);
-    // debugf(">GYRO_Z:%f§dp/s\n", data->GYRO_DATA_Z);
-
-    // debugf(">TEMP:%f§°C\n", data->TEMP);
+    debugf(">ACCEL_X: %f§g/s\n", data->ACCEL_DATA_X);
+    // debugf(">ACCEL_Y: %.2f§g/s\n", data->ACCEL_DATA_Y);
+    // debugf(">ACCEL_Z: %.2f§g/s\n", data->ACCEL_DATA_Z);
+    // debugf(">GYRO_X: %f§deg/s\n", data->GYRO_DATA_X);
+    // debugf(">GYRO_Y: %.2f§deg/s\n", data->GYRO_DATA_Y);
+    // debugf(">GYRO_Z: %.2f§deg/s\n", data->GYRO_DATA_Z);
+    // debugf(">TEMP: %.0f§°C\n", data->TEMP);
+    debugf(">POS_X: %.3f§mm\n", data->POS_X * 1000); // Multiply POS_X by 1000 to convert to mm
+    // debugf(">DEG_X: %.2f§deg\n", data->DEG_X);
 }

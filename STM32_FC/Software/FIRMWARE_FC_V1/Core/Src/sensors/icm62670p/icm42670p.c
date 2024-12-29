@@ -84,10 +84,25 @@ void icm_init()
 
     // set temp lowpass
     icm_write_reg(TEMP_CONFIG0, 0b01110000);
+
     // configs FIFO
+    icm_write_reg(FIFO_CONFIG1, 0b00000010); // activate fifo
+    // icm_write_reg(FIFO_CONFIG2,0);
+    // icm_write_reg(FIFO_CONFIG3, 0);
+
+    icm_write_reg(BLK_SEL_W, 0x00);                // start MREG_1 write
+    icm_write_reg(MADDR_W, (uint8_t)FIFO_CONFIG5); // select MREG_1 register
+    icm_write_reg(M_W, 0b00000011);                // config fifo
+    icm_write_reg(BLK_SEL_W, 0x00);                // end MREG_1 write
+    HAL_Delay(1);
+
+    icm_write_reg(BLK_SEL_W, 0x00);                  // start MREG_1 write
+    icm_write_reg(MADDR_W, (uint8_t)SENSOR_CONFIG3); // select MREG_1 register
+    icm_write_reg(M_W, 0b01000000);                  // Disable APEX features to extend FIFO size to 2.25 Kbytes
+    icm_write_reg(BLK_SEL_W, 0x00);                  // end MREG_1 write
+    HAL_Delay(1);
 
     // sends who i am
-
     icm_read_reg(WHO_AM_I, &buffer, 1);
     debugf("icm42670p 0x%x is initialised\n", buffer);
 }
@@ -273,7 +288,7 @@ struct icm_data *icm_read_data(void)
     // calculate velocity
     static float VELO_X = 0;
     static float last_acc_x = 0;
-    VELO_X += 1000000.0 * ((float)data->ACCEL_DATA_X - last_acc_x) /(float) delta_time; // numerical integration. * 1000000 because deltatime is in us
+    VELO_X += 1000000.0 * ((float)data->ACCEL_DATA_X - last_acc_x) / (float)delta_time; // numerical integration. * 1000000 because deltatime is in us
 
     // calculate position
     static float POS_X = 0;
@@ -286,7 +301,7 @@ struct icm_data *icm_read_data(void)
     static float DEG_X = 0;
     static float last_gyro_x = 0;
 
-    DEG_X += (data->GYRO_DATA_X - last_gyro_x) /(float) delta_time; // numerical integration
+    DEG_X += (data->GYRO_DATA_X - last_gyro_x) / (float)delta_time; // numerical integration
     data->DEG_X = DEG_X;
 
     // debugf in the FREQ_PRINT Frequency
@@ -299,7 +314,7 @@ struct icm_data *icm_read_data(void)
         last_print = HAL_GetTick() + T_PRINT;
         icm_print_data(data);
         debugf(">VELO_X:%f§m/s\n", VELO_X);
-        debugf(">IMU_FREQ:%.2f§Hz\n", 1000000.0/ (float)delta_time);
+        debugf(">IMU_FREQ:%.2f§Hz\n", 1000000.0 / (float)delta_time);
     }
 
     // reset last variables
@@ -309,6 +324,36 @@ struct icm_data *icm_read_data(void)
     last_gyro_x = data->GYRO_DATA_X;
 
     return data;
+}
+
+struct icm_data *icm_read_data_fifo(void)
+{
+    // fifo packets avaliable
+    uint16_t fifo_cout;
+    icm_read_reg(FIFO_COUNTL, (uint8_t *)&fifo_cout + 1, 1); // lower bytes -> +1 in adress
+    icm_read_reg(FIFO_COUNTH, (uint8_t *)&fifo_cout, 1);     // upper byte -> right adress
+    debugf(">fifo_packages_avaliable: %i\n", fifo_cout);
+
+    // create container
+    struct icm_data *data = (struct icm_data *)malloc(sizeof(struct icm_data));
+
+    struct fifo_raw
+    {
+        uint8_t header;
+        int16_t ACCEL_RAW[3];
+        int16_t GYRO_RAW[3];
+        uint8_t TEMP;
+        int16_t TimeStamp;
+    } fifo_raw;
+
+    // reads out header
+    icm_read_reg(FIFO_DATA, &fifo_raw.header, 1); // upper byte -> right adress
+
+    // check header
+    debugf("header: %i|0x%x \n", fifo_raw.header, fifo_raw.header);
+
+    // read in rest
+    return NULL;
 }
 
 void icm_print_data(struct icm_data *data)

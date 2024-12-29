@@ -132,6 +132,8 @@ int main(void)
     struct icm_data *data = icm_read_data();
     free(data);
 
+    icm_read_data_fifo();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -6,7 +6,8 @@
 
 #include "main.h"
 #include "icm42670p.h"
-#include "../../debug.c"
+// #include "../../debug.c"
+#include "../../../debugConsole/console.h"
 
 extern TIM_HandleTypeDef htim2;
 struct icm_data;

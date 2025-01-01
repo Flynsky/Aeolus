@@ -27,6 +27,7 @@
 #include "usbd_cdc_if.h"
 #include <stdio.h>
 #include ".\sensors\icm62670p\icm42670p.c"
+#include "../../debugConsole/console.c"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -114,6 +115,7 @@ int main(void)
   MX_I2C2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  console_init();
   // set all SPI CS high
   HAL_GPIO_WritePin(PIN_CS_NRF_GPIO_Port, PIN_CS_NRF_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(PIN_IMU_CS_GPIO_Port, PIN_IMU_CS_Pin, GPIO_PIN_SET);
@@ -128,11 +130,11 @@ int main(void)
   {
     // HAL_Delay(10);
     HAL_GPIO_TogglePin(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
+    console_check_for_messages();
+    // struct icm_data *data = icm_read_data();
+    // free(data);
 
-    struct icm_data *data = icm_read_data();
-    free(data);
-
-    icm_read_data_fifo();
+    // icm_read_data_fifo();
 
     /* USER CODE END WHILE */
 

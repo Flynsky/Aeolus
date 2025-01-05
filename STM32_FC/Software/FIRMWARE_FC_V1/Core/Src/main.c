@@ -27,7 +27,9 @@
 #include "usbd_cdc_if.h"
 #include <stdio.h>
 #include ".\sensors\icm62670p\icm42670p.c"
-#include "../../debugConsole/console.c"
+// #include "icm42670p.h"
+#include "console.c" //needs to be here to compile
+#include "console.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -129,7 +131,7 @@ int main(void)
   while (1)
   {
     // HAL_Delay(10);
-    HAL_GPIO_TogglePin(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
+    toggle_status_LED(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
     console_check_for_messages();
     // struct icm_data *data = icm_read_data();
     // free(data);

@@ -42,8 +42,13 @@ add_subdirectory(cmake/stm32cubemx)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/debugConsole
     # Add user defined library search paths
 )
+
+# target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+#     ${CMAKE_SOURCE_DIR}/Core/Src/sensors/icm62670p/icm42670p.c
+# )
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
@@ -52,11 +57,12 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
- # Add user defined include paths
-${CMAKE_SOURCE_DIR}/Core
-${CMAKE_SOURCE_DIR}/Core/Inc
-${CMAKE_SOURCE_DIR}/Core/Src/sensors/icm62670p
-   
+    # Add user defined include paths
+    ${CMAKE_SOURCE_DIR}/Core
+    ${CMAKE_SOURCE_DIR}/Core/Inc
+    ${CMAKE_SOURCE_DIR}/debugConsole
+    ${CMAKE_SOURCE_DIR}/Core/Src/sensors/icm62670p
+
 )
 
 # Add project symbols (macros)

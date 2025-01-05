@@ -3,8 +3,6 @@
 
 #include "main.h"
 
-#include "usbd_cdc_if.h"
-
 // ---------------settting up-----------
 //  in usbd_cdc_if.c 
 // comment out:
@@ -21,7 +19,7 @@
 //  }
 // include console.h
 
-//-----------------------config------------------------
+//-----------------------hardware------------------------
 /**
  * This console can be accessed via COM and UART.(s. CONSOLE_MODE)
  *
@@ -51,9 +49,14 @@ extern UART_HandleTypeDef huart2;
 UART_HandleTypeDef *huart_com = &huart2;
 #endif
 
-//----------------header-------------------------------------------
-
+#if CONSOLE_MODE == CONSOLE_MODE_VCOM
+extern USBD_HandleTypeDef hUsbDeviceFS;
+extern uint8_t VCP_Buffer_rx[]; // buffer of incommming rx data aka messages
+void console_check_for_messages();
 int8_t CDC_Receive_FS(uint8_t *pbuf, uint32_t *Len);
+#endif
+
+//----------------header-------------------------------------------
 
 extern const char END_OF_TRAMISSION_MARKER; // EOT character 0x04
 extern const uint8_t PACKAGE_SPECIFIER;     // this gets added 3x in front of the package to different it from debug data
@@ -97,19 +100,12 @@ struct packet
     float i_anode_measure; // the measured curre
 };
 
-extern I2C_HandleTypeDef hi2c1;
 
 void console_init(void);
-void byte_to_msg(uint8_t *byte_stream);
-void message_handler(struct message *msg);
 void debugf(const char *__restrict format, ...);
 void print_startup_message(void);
 void toggle_status_LED(GPIO_TypeDef *GPIO_LED, uint16_t GPIO_Pin_LED);
 
-#if CONSOLE_MODE == CONSOLE_MODE_VCOM
-extern USBD_HandleTypeDef hUsbDeviceFS;
-extern uint8_t VCP_Buffer_rx[]; // buffer of incommming rx data aka messages
-void console_check_for_messages();
-#endif
+
 
 #endif

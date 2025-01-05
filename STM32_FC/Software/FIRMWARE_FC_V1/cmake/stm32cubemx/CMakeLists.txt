@@ -6,9 +6,9 @@ add_library(stm32cubemx INTERFACE)
 # Enable CMake support for ASM and C languages
 enable_language(C ASM)
 
-target_compile_definitions(stm32cubemx INTERFACE 
-	USE_HAL_DRIVER 
-	STM32L412xx
+target_compile_definitions(stm32cubemx INTERFACE
+    USE_HAL_DRIVER
+    STM32L412xx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
@@ -22,6 +22,9 @@ target_include_directories(stm32cubemx INTERFACE
     ../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
     ../../Drivers/CMSIS/Device/ST/STM32L4xx/Include
     ../../Drivers/CMSIS/Include
+    ##user
+    # ../../debugConsole
+    # ../../Core/Src/sensors/icm62670p
 )
 
 target_sources(stm32cubemx INTERFACE
@@ -64,6 +67,14 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
     ../../startup_stm32l412xx.s
+    #user
+    ## console
+    # ../../debugConsole/console.c
+    # ../../debugConsole/i2c_scan.c
+    # ../../debugConsole/packet.c
+    # ## sensor
+    # ../../Core/Src/sensors/icm62670p/icm42670p.c
+
 )
 
 target_link_directories(stm32cubemx INTERFACE

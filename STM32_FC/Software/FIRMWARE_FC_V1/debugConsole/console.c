@@ -5,21 +5,22 @@
 #include "packet.c"
 #include "i2c_scan.c"
 
-void message_handler(struct message *msg);
-
-// void print_startup_message(void);
-void debugf(const char *__restrict format, ...);
-
-void i2c_scan(I2C_HandleTypeDef *hi2c);
-void print_bytes(void *ptr, unsigned int size);
-void JumpToBootloader(void);
-extern void packet_send_test(void);
-
-
+// console
 const char END_OF_TRAMISSION_MARKER = 4; // EOT character 0x04
 const uint8_t PACKAGE_SPECIFIER = 3;
-
 uint8_t VCP_Buffer_rx[sizeof(struct message)] = {0};
+
+static void message_handler(struct message *msg);
+static void byte_to_msg(uint8_t *byte_stream);
+
+// debugging tools
+void debugf(const char *__restrict format, ...);
+
+void print_bytes(void *ptr, unsigned int size);
+void packet_send_test(void);
+extern I2C_HandleTypeDef hi2c1;
+void i2c_scan(I2C_HandleTypeDef *hi2c);
+static void JumpToBootloader(void);
 
 //-----------------Handle Message-----------------------------
 /**
@@ -43,7 +44,6 @@ void message_handler(struct message *msg)
 
         // debugf("['v'] [] reads out all voltages/currents\n");
         break;
-
 
     case CTRL_SEND_TEST_PACKET:
         if (msg->param0 <= 1)
@@ -117,8 +117,8 @@ void console_check_for_messages()
  */
 int8_t CDC_Receive_FS(uint8_t *Buf, uint32_t *Len)
 {
-    (void) Buf; //mak as unused
-    (void) Len;
+    (void)Buf; // mak as unused
+    (void)Len;
 
     // debugf("uC message [%i] received\n", (unsigned int)(*Len));
 
@@ -343,7 +343,7 @@ void JumpToBootloader(void)
 
     HAL_I2C_DeInit(&hi2c1);
     HAL_ADC_DeInit(&hadc1);
-    
+
     // Reset USB
     USB->CNTR = 0x0003;
 

@@ -26,8 +26,8 @@
 /* USER CODE BEGIN Includes */
 #include "usbd_cdc_if.h"
 #include <stdio.h>
-#include ".\sensors\icm62670p\icm42670p.c"
-// #include "icm42670p.h"
+// #include ".\sensors\icm62670p\icm42670p.c"
+// // #include "icm42670p.h"
 #include "console.c" //needs to be here to compile
 #include "console.h"
 /* USER CODE END Includes */

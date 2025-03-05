@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/fgewi/Documents/Projects/Aeolus/STM32_FC/Software/Kalman Filter/media/videos/Untitled-1/1080p60/partial_movie_files/FollowingGraphCamera/3278583650_1592229535_2977514281.mp4'
+file 'file:C:/Users/fgewi/Documents/Projects/Aeolus/STM32_FC/Software/Kalman Filter/media/videos/Untitled-1/1080p60/partial_movie_files/FollowingGraphCamera/405462463_3638449575_1402403564.mp4'
+file 'file:C:/Users/fgewi/Documents/Projects/Aeolus/STM32_FC/Software/Kalman Filter/media/videos/Untitled-1/1080p60/partial_movie_files/FollowingGraphCamera/3306485115_1076361154_3226877075.mp4'

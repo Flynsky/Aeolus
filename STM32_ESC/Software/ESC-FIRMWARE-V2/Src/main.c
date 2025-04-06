@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+void debugf(const char *__restrict format, ...);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,9 +65,9 @@ void SystemClock_Config(void);
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -100,41 +100,44 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   uint8_t TxBuffer[] = "Hello World! From STM32 USB CDC Device To Virtual COM Port\r\n";
-  uint8_t TxBufferLen = sizeof(TxBuffer);
+  HAL_Delay(500);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-    CDC_Transmit_FS("Hello\r\n", 7);
+    // debugf("oi\n");
+    CDC_Transmit_FS(TxBuffer, sizeof(TxBuffer));
     HAL_Delay(1000);
+
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_MSI;
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -152,8 +155,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -166,13 +170,70 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+#include "usbd_cdc_if.h"
 
+void debugf(const char *__restrict format, ...)
+{
+  // TODO testing on memory savety
+  va_list args;
+  va_list args_copy;
+  char *buffer;
+  int buffer_size;
+
+  // Start processing the variable arguments
+  va_start(args, format);
+
+  // Copy args to use it twice
+  va_copy(args_copy, args);
+
+  // Get the size of the buffer needed
+  buffer_size = vsnprintf(NULL, 0, format, args) + 1; // +1 for the END_OF_TRAMISSION_MARKER
+
+  // Allocate the buffer dynamically
+  buffer = (char *)malloc(buffer_size + 1);
+  if (buffer == NULL)
+  // Handle memory allocation failure
+  {
+    va_end(args);
+    va_end(args_copy);
+    return;
+  }
+
+  // Format the string
+  vsnprintf(buffer, buffer_size, format, args_copy);
+
+  buffer[buffer_size - 1] = 4;
+
+  const uint8_t RECONNECT_TRYS = 5;
+  const uint32_t RECONNECT_TIMEOUT = 5;
+
+  uint8_t status = 1;
+  uint8_t trys = 0;
+  do
+  {
+    HAL_Delay(RECONNECT_TIMEOUT);
+    status = CDC_Transmit_FS((uint8_t *)buffer, (uint16_t)buffer_size); // Send data via USB}while(status != USBD_OK)
+    trys++;
+    if (trys > RECONNECT_TRYS)
+    {
+      break;
+    }
+  } while (status == USBD_BUSY);
+
+  // Clean up
+  free(buffer);
+  va_end(args);
+  va_end(args_copy);
+}
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -184,14 +245,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
@@ -200,61 +261,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-
-// void debugf(const char *__restrict format, ...)
-// {
-//     // TODO testing on memory savety
-//     va_list args;
-//     va_list args_copy;
-//     char *buffer;
-//     int buffer_size;
-
-//     // Start processing the variable arguments
-//     va_start(args, format);
-
-//     // Copy args to use it twice
-//     va_copy(args_copy, args);
-
-//     // Get the size of the buffer needed
-//     buffer_size = vsnprintf(NULL, 0, format, args) + 1; // +1 for the END_OF_TRAMISSION_MARKER
-
-//     // Allocate the buffer dynamically
-//     buffer = (char *)malloc(buffer_size + 1);
-//     if (buffer == NULL)
-//     // Handle memory allocation failure
-//     {
-//         va_end(args);
-//         va_end(args_copy);
-//         return;
-//     }
-
-//     // Format the string
-//     vsnprintf(buffer, buffer_size, format, args_copy);
-
-//     buffer[buffer_size - 1] = '\n';
-
-
-//     const uint8_t RECONNECT_TRYS = 5;
-//     const uint32_t RECONNECT_TIMEOUT = 5;
-
-//     uint8_t status = 1;
-//     uint8_t trys = 0;
-//     do
-//     {
-//         HAL_Delay(RECONNECT_TIMEOUT);
-//         status = CDC_Transmit_FS((uint8_t *)buffer, (uint16_t)buffer_size); // Send data via USB}while(status != USBD_OK)
-//         trys++;
-//         if (trys > RECONNECT_TRYS)
-//         {
-//             break;
-//         }
-//     } while (status == USBD_BUSY);
-
-
-//     // Clean up
-//     free(buffer);
-//     va_end(args);
-//     va_end(args_copy);
-// }
-

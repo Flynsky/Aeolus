@@ -50,7 +50,7 @@ void debugf(const char *__restrict format, ...)
     do
     {
         HAL_Delay(RECONNECT_TIMEOUT);
-        status = CDC_Transmit_FS((uint8_t *)buffer, (uint16_t)buffer_size); // Send data via USB}while(status != USBD_OK)
+        status = CDC_Transmit_FS((uint8_t *)buffer, (uint16_t)buffer_size-1); // Send data via USB}while(status != USBD_OK)
         trys++;
         if (trys > RECONNECT_TRYS)
         {

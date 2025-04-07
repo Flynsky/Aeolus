@@ -103,20 +103,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, GPIO_PIN_SET); // Reset -> opens Mosfet
-  uint32_t adc_buffer[7];
+
   // HAL_ADC_Start_DMA(&hadc1, adc_buffer, 7);
 
   while (1)
   {
     HAL_Delay(100);
-    debugf(">V_C:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_5)*(1+5.1));
-    debugf(">I_C:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_6));
-    debugf(">V_B:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_7)*(1+5.1));
-    debugf(">I_B:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_8));
-    debugf(">V_A:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_9)*(1+5.1));
-    debugf(">I_A:%i\n", read_ADC_Value(&hadc1,ADC_CHANNEL_10));
-    debugf(">Bat_DIV:%f\n", read_ADC_Value(&hadc1,ADC_CHANNEL_11)*(1+5.1));
+    debugf(">VC:%f\n",read_ADC_Value(&hadc1,ADC_CHANNEL_5)*(1+5.1));
+    debugf(">IC:%f\n",read_ADC_Value(&hadc1,ADC_CHANNEL_6));
+    debugf(">VB:%f\n",read_ADC_Value(&hadc1,ADC_CHANNEL_7)*(1+5.1));
+    debugf(">IB:%f\n",read_ADC_Value(&hadc1,ADC_CHANNEL_8));
+    debugf(">VA:%f\n",read_ADC_Value(&hadc1,ADC_CHANNEL_9)*(1+5.1));
+    debugf(">IA:%f\n", read_ADC_Value(&hadc1,ADC_CHANNEL_10));
+    debugf(">BatDIV:%f\n", read_ADC_Value(&hadc1,ADC_CHANNEL_11)*(1+5.1));
     debugf("\n");
+    // debugf("1");
     
     // debugf("oi\n");
     /* USER CODE END WHILE */

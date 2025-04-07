@@ -57,24 +57,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define PIN_VV_Sense_C_Pin GPIO_PIN_0
-#define PIN_VV_Sense_C_GPIO_Port GPIOA
-#define PIN_VI_Sense_C_Pin GPIO_PIN_1
-#define PIN_VI_Sense_C_GPIO_Port GPIOA
-#define PIN_VV_Sense_B_Pin GPIO_PIN_2
-#define PIN_VV_Sense_B_GPIO_Port GPIOA
-#define PIN_VI_Sense_B_Pin GPIO_PIN_3
-#define PIN_VI_Sense_B_GPIO_Port GPIOA
-#define PIN_VV_Sense_A_Pin GPIO_PIN_4
-#define PIN_VV_Sense_A_GPIO_Port GPIOA
-#define PIN_VI_Sense_A_Pin GPIO_PIN_5
-#define PIN_VI_Sense_A_GPIO_Port GPIOA
-#define V_BAT_DIV_Pin GPIO_PIN_6
-#define V_BAT_DIV_GPIO_Port GPIOA
 #define PIN_LO_A_Pin GPIO_PIN_7
 #define PIN_LO_A_GPIO_Port GPIOA
+#define PIN_LO_C_Pin GPIO_PIN_1
+#define PIN_LO_C_GPIO_Port GPIOB
 #define PIN_HI_A_Pin GPIO_PIN_8
 #define PIN_HI_A_GPIO_Port GPIOA
+#define PIN_HI_C_Pin GPIO_PIN_10
+#define PIN_HI_C_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

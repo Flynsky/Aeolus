@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "usb_device.h": "c"
+        "debugf_vcp.h": "c",
+        "dma.h": "c",
+        "adc.h": "c"
     }
 }

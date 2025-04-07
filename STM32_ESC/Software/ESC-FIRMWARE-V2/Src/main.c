@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
-#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usb_device.h"
@@ -27,19 +26,17 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-// #include "stm32f1xx_hal.h"
-// #include "usb_device.h"
-#include "usbd_cdc_if.h"
+#include "debugf_vcp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern ADC_HandleTypeDef hadc1;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-void debugf(const char *__restrict format, ...);
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -56,7 +53,7 @@ void debugf(const char *__restrict format, ...);
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -93,24 +90,35 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USB_DEVICE_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t TxBuffer[] = "Hello World! From STM32 USB CDC Device To Virtual COM Port\r\n";
-  HAL_Delay(500);
+  HAL_Delay(1000);
+  debugf("--Reset--\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, GPIO_PIN_SET); // Reset -> opens Mosfet
+  uint32_t adc_buffer[7];
+  // HAL_ADC_Start_DMA(&hadc1, adc_buffer, 7);
+
   while (1)
   {
+    HAL_Delay(100);
+    debugf(">V_C:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_5)*(1+5.1));
+    debugf(">I_C:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_6));
+    debugf(">V_B:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_7)*(1+5.1));
+    debugf(">I_B:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_8));
+    debugf(">V_A:%i\n",read_ADC_Value(&hadc1,ADC_CHANNEL_9)*(1+5.1));
+    debugf(">I_A:%i\n", read_ADC_Value(&hadc1,ADC_CHANNEL_10));
+    debugf(">Bat_DIV:%f\n", read_ADC_Value(&hadc1,ADC_CHANNEL_11)*(1+5.1));
+    debugf("\n");
+    
     // debugf("oi\n");
-    CDC_Transmit_FS(TxBuffer, sizeof(TxBuffer));
-    HAL_Delay(1000);
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -170,63 +178,52 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include "usbd_cdc_if.h"
-
-void debugf(const char *__restrict format, ...)
+/* Function to perform a single ADC measurement */
+float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel)
 {
-  // TODO testing on memory savety
-  va_list args;
-  va_list args_copy;
-  char *buffer;
-  int buffer_size;
+    const float ADC_RESOLUTION = 4096.0; // 2^12Bit
+    const float V_REF = 3.3;             // V
 
-  // Start processing the variable arguments
-  va_start(args, format);
+    uint32_t rawValue = 0;
+    float voltage = 0.0f;
 
-  // Copy args to use it twice
-  va_copy(args_copy, args);
-
-  // Get the size of the buffer needed
-  buffer_size = vsnprintf(NULL, 0, format, args) + 1; // +1 for the END_OF_TRAMISSION_MARKER
-
-  // Allocate the buffer dynamically
-  buffer = (char *)malloc(buffer_size + 1);
-  if (buffer == NULL)
-  // Handle memory allocation failure
-  {
-    va_end(args);
-    va_end(args_copy);
-    return;
-  }
-
-  // Format the string
-  vsnprintf(buffer, buffer_size, format, args_copy);
-
-  buffer[buffer_size - 1] = 4;
-
-  const uint8_t RECONNECT_TRYS = 5;
-  const uint32_t RECONNECT_TIMEOUT = 5;
-
-  uint8_t status = 1;
-  uint8_t trys = 0;
-  do
-  {
-    HAL_Delay(RECONNECT_TIMEOUT);
-    status = CDC_Transmit_FS((uint8_t *)buffer, (uint16_t)buffer_size); // Send data via USB}while(status != USBD_OK)
-    trys++;
-    if (trys > RECONNECT_TRYS)
+    /** Configure Regular Channel
+     */
+    ADC_ChannelConfTypeDef sConfig = {0};
+    sConfig.Channel = channel;
+    sConfig.Rank = ADC_REGULAR_RANK_1;
+    sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+    sConfig.SingleDiff = ADC_SINGLE_ENDED;
+    sConfig.OffsetNumber = ADC_OFFSET_NONE;
+    sConfig.Offset = 0;
+    if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
     {
-      break;
+        debugf("Error configuring ADC channel\n");
+        Error_Handler(); // Handle configuration error
+        return -1.0;
     }
-  } while (status == USBD_BUSY);
 
-  // Clean up
-  free(buffer);
-  va_end(args);
-  va_end(args_copy);
+    // Start the ADC
+    HAL_ADC_Start(hadc);
+
+    // Poll for conversion
+    if (HAL_ADC_PollForConversion(hadc, HAL_MAX_DELAY) != HAL_OK)
+    {
+        HAL_ADC_Stop(hadc);
+        debugf("Error ADC Poll");
+        return -1.0;
+    }
+
+    // Get raw ADC value
+    rawValue = HAL_ADC_GetValue(hadc);
+
+    // Convert raw ADC value to voltage
+    voltage = ((float)rawValue / (ADC_RESOLUTION - 1)) * V_REF;
+
+    // Stop the ADC
+    HAL_ADC_Stop(hadc);
+    // debugf("adc_raw:%i|conv:%f\n", rawValue, voltage);
+    return voltage;
 }
 /* USER CODE END 4 */
 

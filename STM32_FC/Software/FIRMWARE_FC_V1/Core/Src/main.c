@@ -117,12 +117,12 @@ int main(void)
   MX_I2C2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  console_init();
+  // console_init();
   // set all SPI CS high
   HAL_GPIO_WritePin(PIN_CS_NRF_GPIO_Port, PIN_CS_NRF_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(PIN_IMU_CS_GPIO_Port, PIN_IMU_CS_Pin, GPIO_PIN_SET);
   // init sensors
-  icm_init();
+  // icm_init();
   HAL_Delay(500);
   /* USER CODE END 2 */
 
@@ -131,8 +131,11 @@ int main(void)
   while (1)
   {
     // HAL_Delay(10);
-    toggle_status_LED(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
-    console_check_for_messages();
+    // toggle_status_LED(PIN_STATUS_LED_GPIO_Port, PIN_STATUS_LED_Pin);
+    // console_check_for_messages();
+    // debugf("oi\n");
+    uint8_t TxBuffer[] = "Hello World! From STM32 USB CDC Device To Virtual COM Port\r\n";
+    CDC_Transmit_FS(TxBuffer, sizeof(TxBuffer));
     // struct icm_data *data = icm_read_data();
     // free(data);
 

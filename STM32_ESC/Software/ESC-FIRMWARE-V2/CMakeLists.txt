@@ -23,6 +23,7 @@ set(CMAKE_PROJECT_NAME ESC)
 
 # Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
+# to install on linux: apt install gcc-arm-none-eabi
 
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
@@ -81,11 +82,20 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 )
 
 # Add a custom command to run after the target is built
+# Windows:
+#add_custom_command(
+#    TARGET ${CMAKE_PROJECT_NAME}
+#    POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
+#    COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+#    COMMENT "Uploading firmware using dfu-util"
+#)
+#Linux
 add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME}
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
-    COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+    COMMAND dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
     COMMENT "Uploading firmware using dfu-util"
 )
 

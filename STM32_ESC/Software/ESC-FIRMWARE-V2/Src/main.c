@@ -101,8 +101,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, GPIO_PIN_SET); // Reset -> opens Mosfet
+  HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, GPIO_PIN_SET); 
 
   // HAL_ADC_Start_DMA(&hadc1, adc_buffer, 7);
 
@@ -123,6 +123,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    HAL_GPIO_TogglePin(PIN_HI_C_GPIO_Port,PIN_HI_C_Pin);
+    HAL_GPIO_TogglePin(PIN_LO_C_GPIO_Port,PIN_LO_C_Pin);
   }
   /* USER CODE END 3 */
 }

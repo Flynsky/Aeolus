@@ -1,4 +1,0 @@
-(fp_lib_table
-  (version 7)
-  (lib (name "ESC_footrpints")(type "KiCad")(uri "${KIPRJMOD}/Libary/ESC_footrpints.pretty")(options "")(descr ""))
-)

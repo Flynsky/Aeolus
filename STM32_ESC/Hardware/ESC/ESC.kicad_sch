@@ -5976,7 +5976,7 @@
 		)
 		(uuid "348b01dd-1e6a-417b-ab16-c908f2ea7f07")
 	)
-	(text "Design Errors\n -NMos Source/Drain Switched"
+	(text "Design Errors\n -NMos Source/Drain Switched\n -Halfbridge Driver for 2 NMos\n -no Boot/Reset Buttons\n"
 		(exclude_from_sim no)
 		(at 304.8 138.176 0)
 		(effects

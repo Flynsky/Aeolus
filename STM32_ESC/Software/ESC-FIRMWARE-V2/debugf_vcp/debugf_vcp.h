@@ -40,9 +40,8 @@ add to Src\usbd_cdc_if.c
 #define DEBUGF_VCP_H
 
 void debugf(const char *__restrict format, ...);
-
 void console_check();
-
+void print_startup();
 void jump_to_dfu_bootloader();
 
 #endif

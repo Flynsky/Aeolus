@@ -98,7 +98,7 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(1000);
-  debugf("--Reset--\n");
+  print_startup();
   /* USER CODE END 2 */
 
   /* Infinite loop */

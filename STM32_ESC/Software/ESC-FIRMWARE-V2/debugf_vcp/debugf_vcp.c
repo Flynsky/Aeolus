@@ -84,7 +84,7 @@ void console_check()
     /*checks if 0 is overridden -> new message in buffer*/
     if (UserRxBufferFS[0] != 0)
     {
-        debugf("Received data: %s\n", UserRxBufferFS);
+        // debugf("Received data: %s\n", UserRxBufferFS);
 
         /*decode message*/
         char command[4];                                      // Store the command (e.g., "/C")
@@ -95,7 +95,7 @@ void console_check()
         (void)num_params; // debugf("num_params:%i\n", num_params);
 
         // Print the command and the parameters
-        debugf("Comand:%s|%f|%f|%f|%f|\b", command, param0, param1, param2, param3);
+        debugf("~rec:%s|%f|%f|%f|%f|\n", command, param0, param1, param2, param3);
 
         // debugf("r:%i,n:%i\n",com_encoded, (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0));
         int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]);
@@ -115,6 +115,20 @@ void console_check()
     }
 }
 
+void print_startup(){
+    debugf("\033[35m");
+    debugf("   ('-.    .-')                      .-')    .-') _   _   .-')\n");
+    debugf(" _(  OO)  ( OO ).                   ( OO ). (  OO) ) ( '.( OO )_\n");
+    debugf("(,------.(_)---\\_)   .-----.       (_)---\\_)/     '._ ,--.   ,--.).-----.  .-----.  \n");
+    debugf(" |  .---'/    _ |   '  .--./       /    _ | |'--...__)|   `.'   |/  -.   \\/ ,-.   \\ \n");
+    debugf(" |  |    \\  :` `.   |  |('-.       \\  :` `. '--.  .--'|         |'-' _'  |'-'  |  | \n");
+    debugf("(|  '--.  '..`''.) /_) |OO  )       '..`''.)   |  |   |  |'.'|  |   |_  <    .'  /  \n");
+    debugf(" |  .--' .-._)   \\ ||  |`-'|       .-._)   \\   |  |   |  |   |  |.-.  |  | .'  /__  \n");
+    debugf(" |  `---.\\       /(_'  '--'\\       \\       /   |  |   |  |   |  |\\ `-'   /|       | \n");
+    debugf(" `------' `-----'    `-----'        `-----'    `--'   `--'   `--' `----'' `-------' \n");
+    debugf("\033[0m");
+}
+
 #include "stm32l4xx.h"
 #include "usbd_core.h"
 
@@ -126,6 +140,7 @@ extern USBD_DescriptorsTypeDef FS_Desc;
  */
 void jump_to_dfu_bootloader()
 {
+    /* Disables CDC USB*/
     USBD_Stop(&hUsbDeviceFS);
     USBD_DeInit(&hUsbDeviceFS);
 

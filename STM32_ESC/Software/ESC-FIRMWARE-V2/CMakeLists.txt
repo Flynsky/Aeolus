@@ -48,13 +48,13 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-debugf_vcp/debugf_vcp.c
+    debugf_vcp/debugf_vcp.c
     # Add user sources here
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-debugf_vcp
+    debugf_vcp
     # Add user defined include paths
 )
 
@@ -84,11 +84,11 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 # Add a custom command to run after the target is built
 # Windows:
 add_custom_command(
-   TARGET ${CMAKE_PROJECT_NAME}
-   POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
-   COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
-   COMMENT "Uploading firmware using dfu-util"
+    TARGET ${CMAKE_PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
+    COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+    COMMENT "Uploading firmware using dfu-util"
 )
 #Linux
 # add_custom_command(
@@ -103,7 +103,7 @@ add_custom_command(
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 
 # Add the linker flag to enable floating-point support in printf
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float -u _scanf_float")
 
 # Link the math library to support floating-point operations
 target_link_libraries(${PROJECT_NAME} m)

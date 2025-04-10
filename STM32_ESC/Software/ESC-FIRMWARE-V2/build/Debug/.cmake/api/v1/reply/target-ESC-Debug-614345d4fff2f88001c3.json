@@ -243,7 +243,7 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-u _printf_float",
+				"fragment" : "-u _printf_float -u _scanf_float",
 				"role" : "flags"
 			},
 			{

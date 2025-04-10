@@ -73,6 +73,7 @@ extern uint8_t UserRxBufferFS[];
  */
 void console_check()
 {
+    /*prevents ghost message recivement if by chance 0 is in buffer*/
     static unsigned char init = 0;
     if (!init)
     {
@@ -80,26 +81,36 @@ void console_check()
         init = 1;
     }
 
+    /*checks if 0 is overridden -> new message in buffer*/
     if (UserRxBufferFS[0] != 0)
     {
-        debugf("Message recieved\n");
-        // /*decode message*/
-        char command[10];                                     // Store the command (e.g., "/C")
+        debugf("Received data: %s\n", UserRxBufferFS);
+
+        /*decode message*/
+        char command[4];                                      // Store the command (e.g., "/C")
         float param0 = 0, param1 = 0, param2 = 0, param3 = 0; // Up to 4 parameters
 
-        // Use sscanf to extract the command and up to 4 floats
+        /*Use sscanf to extract the command and up to 4 floats*/
         int num_params = sscanf((const char *)UserRxBufferFS, "%s %f %f %f %f", command, &param0, &param1, &param2, &param3);
+        (void)num_params; // debugf("num_params:%i\n", num_params);
 
         // Print the command and the parameters
-        debugf("Com: %s|%f|%f|%f|%f|", command, param0, param1, param2, param3);
-        debugf("num_params:%i\n", num_params);
+        debugf("Comand:%s|%f|%f|%f|%f|\b", command, param0, param1, param2, param3);
 
-        if (command[0] == 'd' && command[1] == 'f' && command[2] == 'u')
+        // debugf("r:%i,n:%i\n",com_encoded, (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0));
+        int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]);
+        switch (com_encoded)
         {
+        case (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0):
             debugf("\n--DFU update--\n");
             HAL_Delay(10);
             jump_to_dfu_bootloader();
+            break;
+
+        default:
+            break;
         }
+
         UserRxBufferFS[0] = 0;
     }
 }

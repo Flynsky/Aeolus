@@ -110,7 +110,7 @@ int main(void)
 
   while (1)
   {
-    HAL_Delay(1000);
+    HAL_Delay(10);
     // debugf(">VC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_5) * (1 + 5.1));
     // debugf(">IC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_6));
     // debugf(">VB:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_7) * (1 + 5.1));

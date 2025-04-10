@@ -7,7 +7,8 @@
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 
 # Add the linker flag to enable floating-point support in printf
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float -u _scanf_float")
+
 
 # Link the math library to support floating-point operations
 target_link_libraries(${PROJECT_NAME} m)

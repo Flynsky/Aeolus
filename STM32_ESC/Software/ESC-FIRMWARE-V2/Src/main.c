@@ -123,8 +123,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(PIN_HI_C_GPIO_Port,PIN_HI_C_Pin);
-    HAL_GPIO_TogglePin(PIN_LO_C_GPIO_Port,PIN_LO_C_Pin);
+    // HAL_GPIO_TogglePin(PIN_HI_C_GPIO_Port,PIN_HI_C_Pin);
+    // HAL_GPIO_TogglePin(PIN_LO_C_GPIO_Port,PIN_LO_C_Pin);
+
+    static int a = 0;
+    a++;
+    if(a>100){
+      jump_to_dfu_bootloader();
+    }
+    
   }
   /* USER CODE END 3 */
 }

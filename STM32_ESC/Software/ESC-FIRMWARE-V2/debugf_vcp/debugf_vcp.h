@@ -36,4 +36,6 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 void debugf(const char *__restrict format, ...);
 
+void jump_to_dfu_bootloader();
+
 #endif

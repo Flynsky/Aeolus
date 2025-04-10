@@ -10,7 +10,7 @@
 					[
 						1
 					],
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -24,7 +24,7 @@
 				},
 				{
 					"build" : "cmake/stm32cubemx",
-					"jsonFile" : "directory-cmake.stm32cubemx-Debug-4b19649788072bcc790a.json",
+					"jsonFile" : "directory-cmake.stm32cubemx-Debug-a874d3cc84b5982fda2e.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -66,7 +66,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "ESC::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-ESC-Debug-64747a87cde4d9680acf.json",
+					"jsonFile" : "target-ESC-Debug-86355334ddbc4c856661.json",
 					"name" : "ESC",
 					"projectIndex" : 0
 				}
@@ -76,12 +76,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug",
-		"source" : "/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2"
+		"build" : "C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug",
+		"source" : "C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 7
 	}
 }

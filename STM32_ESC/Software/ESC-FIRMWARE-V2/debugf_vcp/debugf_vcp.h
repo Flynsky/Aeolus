@@ -29,12 +29,18 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
 )
 *
+
+add to Src\usbd_cdc_if.c
+#include "debugf_vcp.h"
+
  */
 
 #ifndef DEBUGF_VCP_H
 #define DEBUGF_VCP_H
 
 void debugf(const char *__restrict format, ...);
+
+void console_check();
 
 void jump_to_dfu_bootloader();
 

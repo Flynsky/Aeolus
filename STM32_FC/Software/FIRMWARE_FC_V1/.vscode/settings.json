@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "usbd_cdc.h": "c"
+        "usbd_cdc.h": "c",
+        "cstdlib": "c"
     },
     "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json" ,
     "C_Cpp.intelliSenseEngine": "Tag Parser" 

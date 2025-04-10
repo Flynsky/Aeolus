@@ -1,0 +1,5 @@
+C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/CMakeFiles/ESC.dir
+C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/CMakeFiles/edit_cache.dir
+C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/CMakeFiles/rebuild_cache.dir
+C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/fgewi/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

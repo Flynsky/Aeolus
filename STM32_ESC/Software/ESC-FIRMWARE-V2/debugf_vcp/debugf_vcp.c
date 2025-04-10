@@ -8,8 +8,9 @@
 #include <string.h>
 #include "usbd_cdc_if.h"
 
-#include "usbd_core.h"
-
+/**
+ * prints formated message over CDC
+ */
 void debugf(const char *__restrict format, ...)
 {
     // TODO testing on memory savety
@@ -65,13 +66,53 @@ void debugf(const char *__restrict format, ...)
     va_end(args_copy);
 }
 
-//software-triggert DFU
+extern uint8_t UserRxBufferFS[];
+/**
+ * Checks CDC recive buffer for new data.
+ * Works with no modifications of any other files, just call this message periodicly.
+ */
+void console_check()
+{
+    static unsigned char init = 0;
+    if (!init)
+    {
+        UserRxBufferFS[0] = 0;
+        init = 1;
+    }
+
+    if (UserRxBufferFS[0] != 0)
+    {
+        debugf("Message recieved\n");
+        // /*decode message*/
+        char command[10];                                     // Store the command (e.g., "/C")
+        float param0 = 0, param1 = 0, param2 = 0, param3 = 0; // Up to 4 parameters
+
+        // Use sscanf to extract the command and up to 4 floats
+        int num_params = sscanf((const char *)UserRxBufferFS, "%s %f %f %f %f", command, &param0, &param1, &param2, &param3);
+
+        // Print the command and the parameters
+        debugf("Com: %s|%f|%f|%f|%f|", command, param0, param1, param2, param3);
+        debugf("num_params:%i\n", num_params);
+
+        if (command[0] == 'd' && command[1] == 'f' && command[2] == 'u')
+        {
+            debugf("\n--DFU update--\n");
+            HAL_Delay(10);
+            jump_to_dfu_bootloader();
+        }
+        UserRxBufferFS[0] = 0;
+    }
+}
+
+#include "stm32l4xx.h"
+#include "usbd_core.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 extern USBD_DescriptorsTypeDef FS_Desc;
 
-#include "stm32l4xx.h"
-
+/**
+ * Trigger DFU bootloader via Software
+ */
 void jump_to_dfu_bootloader()
 {
     USBD_Stop(&hUsbDeviceFS);
@@ -90,5 +131,4 @@ void jump_to_dfu_bootloader()
     __set_MSP(*(volatile uint32_t *)bootloader_address);
     void (*bootloader_jump)(void) = (void (*)(void))(*(volatile uint32_t *)(bootloader_address + 4));
     bootloader_jump();
-
 }

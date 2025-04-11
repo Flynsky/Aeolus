@@ -83,6 +83,7 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 
 # Add a custom command to run after the target is built
 # Windows:
+if (WIN32)
 add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME}
     POST_BUILD
@@ -90,14 +91,15 @@ add_custom_command(
     COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
     COMMENT "Uploading firmware using dfu-util"
 )
-#Linux
-# add_custom_command(
-#     TARGET ${CMAKE_PROJECT_NAME}
-#     POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
-#     COMMAND dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
-#     COMMENT "Uploading firmware using dfu-util"
-# )
+else()
+     add_custom_command(
+     TARGET ${CMAKE_PROJECT_NAME}
+     POST_BUILD
+     COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
+     COMMAND dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+     COMMENT "Uploading firmware using dfu-util"
+ )
+endif ()
 
 # Enable hardware floating-point support in the compiler (if applicable)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")

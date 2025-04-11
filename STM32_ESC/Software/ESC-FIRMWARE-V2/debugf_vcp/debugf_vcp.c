@@ -101,10 +101,25 @@ void console_check()
         int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]);
         switch (com_encoded)
         {
+            /*dfu update*/
         case (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0):
             debugf("\n--DFU update--\n");
             HAL_Delay(10);
             jump_to_dfu_bootloader();
+            break;
+
+        /*manual phase A control*/
+        case (int)('p' << 24 | 'a' << 16 | 0):
+            debugf("Set Phase A to High %i !Low %i\n", (int)param0, (int)param1);
+            HAL_GPIO_WritePin(PIN_HI_A_GPIO_Port, PIN_HI_A_Pin, (int)param0);
+            HAL_GPIO_WritePin(PIN_LO_A_GPIO_Port, PIN_LO_A_Pin, (int)param1);
+            break;
+
+        /*manual phase C control*/
+        case (int)('p' << 24 | 'c' << 16 | 0):
+            debugf("Set Phase C to High %i !Low %i\n", (int)param0, (int)param1);
+            HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, (int)param0);
+            HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, (int)param1);
             break;
 
         default:
@@ -115,7 +130,8 @@ void console_check()
     }
 }
 
-void print_startup(){
+void print_startup()
+{
     debugf("\033[35m");
     debugf("   ('-.    .-')                      .-')    .-') _   _   .-')\n");
     debugf(" _(  OO)  ( OO ).                   ( OO ). (  OO) ) ( '.( OO )_\n");

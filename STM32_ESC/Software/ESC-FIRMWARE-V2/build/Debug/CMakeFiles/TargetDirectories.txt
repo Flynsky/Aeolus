@@ -1,5 +1,0 @@
-/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug/CMakeFiles/ESC.dir
-/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug/CMakeFiles/edit_cache.dir
-/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug/CMakeFiles/rebuild_cache.dir
-/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
-/home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

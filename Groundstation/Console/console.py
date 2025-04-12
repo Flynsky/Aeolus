@@ -11,13 +11,13 @@ class INTERFACE:
 
     def __init__(self):
         self.isRunning = True
-        self.Serial = Serial_Handler(
-            port=COM_PORT,
-            baud_rate=STANDART_BAUD,
-            timeout=1,
-            format_package=PACKET_FORMAT,
-            buffer_max_size=10000,
-        )
+       # self.Serial = Serial_Handler(
+        #    port=COM_PORT,
+       #     baud_rate=STANDART_BAUD,
+      #      timeout=1,
+     #       format_package=PACKET_FORMAT,
+    #        buffer_max_size=10000,
+   #     )
         
         self.loop()
 
@@ -45,14 +45,27 @@ class INTERFACE:
                     print_yellow(
                         """
 /l List serial ports
+/s select serial port
 /c [command] [parameter] to uplink a command. 
    to see avaliable commands use /c [?]
+/t [string] to uplink a raw string
+/q | quit terminal
 """
                     )
 
                 case "l":
                     self.Serial.list_serial_ports(starred_port=self.Serial.port)
 
+                case "select"|"s":
+                    self.Serial.isRunning = 0
+                    self.Serial = Serial_Handler(
+                         port=COM_PORT,
+                         baud_rate=STANDART_BAUD,
+                         timeout=1,
+                         format_package=PACKET_FORMAT,
+                         buffer_max_size=10000,
+                    )
+    
                 case "c":
                     if self.Serial.port_active is None:
                         print_red("No device connected\n")
@@ -75,16 +88,17 @@ class INTERFACE:
                         except Exception as e:
                             print_red(f"Error Command Console:{e}", indent=1)
                             
-                case "select"|"s":
-                    self.Serial.isRunning = 0
-                    self.Serial = Serial_Handler(
-                         port=COM_PORT,
-                         baud_rate=STANDART_BAUD,
-                         timeout=1,
-                         format_package=PACKET_FORMAT,
-                         buffer_max_size=10000,
-                    )
-    
+                case "t":
+                    if self.Serial.port_active is None:
+                        print_red("No device connected\n")
+                    else:
+                        try:
+                            print_yellow(f"Sending: {command_buf}")
+                            uploadbuffer = command_buf.encode("utf-8")
+                            # print_yellow(f'sending command: {command_buf}|{param1}|\nin bytes: {uploadbuffer}\n',indent=1)
+                            self.Serial.BUFFER_UPLINK.append(uploadbuffer)
+                        except Exception as e:
+                            print_red(f"Error Command Console:{e}", indent=1)
 
                 case "quit" | "q":
                     print_yellow("<shuting down Interface>\n")

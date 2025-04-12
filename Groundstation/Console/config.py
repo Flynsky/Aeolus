@@ -2,7 +2,7 @@
 
 # Serial handler
 ## Virtual Com Port Settings
-COM_PORT = "COM4" #"automatic"
+COM_PORT = "/dev/ttyACM0" #"automatic"
 STANDART_BAUD = 115200
 
 ## Saving Formats

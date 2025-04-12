@@ -24,8 +24,14 @@ class INTERFACE:
         while self.isRunning:
             time.sleep(DELAY_CONSOLE_LOOP)  # delay to conserve performance
             try:
-                self.receive_data()
-                self.input_command(input("~"))
+                if self.Serial is not None:
+                    self.input_command(input("~")) #needs an extra thread
+                    self.receive_data()
+
+                    if self.Serial.is_open is 0:
+                        print_red("COM disconnected\n")
+                        self.Serial = None
+                        self.Port = None
                 
             except KeyboardInterrupt:
                 print_yellow(
@@ -66,7 +72,7 @@ class INTERFACE:
                             f":{self.Port.device}|{self.Port.manufacturer}|9600\n"
                         )
 
-    
+
     def input_command(self, command: str):
         if len(command) > 1 and command[0] == "/":
             match command[1:2]:
@@ -132,7 +138,7 @@ class INTERFACE:
 
                     pass
                 
-                # sends raw unformated text
+                # sends string
                 case "t":
                     if self.Serial is None:
                         print_red("No device connected\n")
@@ -144,6 +150,7 @@ class INTERFACE:
                             print_red(f"Error Command Console:{e}", indent=1)
                     pass
                 
+                # sends a command
                 case "c":
                     # if self.Serial.port_active is None:
                     #     print_red("No device connected\n")

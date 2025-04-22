@@ -95,13 +95,23 @@ void console_check()
         (void)num_params; // debugf("num_params:%i\n", num_params);
 
         // Print the command and the parameters
-        debugf("~rec:%s|%f|%f|%f|%f|\n", command, param0, param1, param2, param3);
+        // debugf("~rec:%s|%f|%f|%f|%f|\n", command, param0, param1, param2, param3);
 
         // debugf("r:%i,n:%i\n",com_encoded, (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0));
-        int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]);
+        int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]); // encodes 4 char in one int to be compared by switch case
         switch (com_encoded)
         {
             /*dfu update*/
+        case (int)('?' << 24 | 0):
+            debugf("\n--help--\n");
+            debugf("-[str command]_[4x float param]\n");
+            debugf("-[?]_[X]:this help screen\n");
+            debugf("-[dfu]_[X]:Device Firmware Update\n");
+            debugf("-[pa]_[a c]:Set Phase A to High a !Low b\n");
+            debugf("\n");
+            break;
+
+        /*dfu update*/
         case (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0):
             debugf("\n--DFU update--\n");
             HAL_Delay(10);
@@ -123,6 +133,7 @@ void console_check()
             break;
 
         default:
+            debugf("unknown commnad\n");
             break;
         }
 

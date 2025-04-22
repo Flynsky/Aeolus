@@ -52,6 +52,7 @@ class INTERFACE:
         while self.isRunning:
             try:
                 cmd = input("~")
+                #print("\033[2K", end="\r") #resets cursor
                 self.input_command(cmd)
             except EOFError:
                 break
@@ -73,12 +74,13 @@ class INTERFACE:
         ports = serial.tools.list_ports.comports()
         # test for stm32
         for port in ports:
-            if "STM" in str(port.manufacturer):
+            if "STM" in str(port.manufacturer) or "Arduino" in str(port.manufacturer):
                 self.Port = port
                 self.Serial = serial.Serial(
-                        self.Port.device, baudrate=9600, timeout=1
-                    )
+                self.Port.device, baudrate=9600, timeout=1
+                )
                 break
+
         
         if self.Port is None:
             print_red("Autoconnect failed\n")
@@ -113,17 +115,17 @@ class INTERFACE:
                         return
 
                     print_yellow("COM ports:\n")
-                    print("nr|device|manufacturer|description")
+                    print("nr|name|manufacturer|description")
                     a = 0
                     for port in ports:
                         if port.device != "":
                             if port == self.Port:  # replaxe none with stared port
                                 print_green(
-                                    f">>{a}|{port.device}|{port.manufacturer}|{port.description}\n"
+                                    f">>{a}|{port.name}|{port.manufacturer}|{port.description}\n"
                                 )
                             else:
                                 print(
-                                    f"{a}|{port.device}|{port.manufacturer}|{port.description}"
+                                    f"{a}|{port.name}|{port.manufacturer}|{port.description}"
                                 )  # - {port.description}- {port.product} -- {port.name}
 
                             a += 1
@@ -163,7 +165,7 @@ class INTERFACE:
                         print_red("No device connected\n")
                     else:
                         try:
-                            print_cyan(f"{command[2:]}\n")
+                            #print_cyan(f"{command[2:]}\n")
                             self.Serial.write((command[2:] +'\n').encode())
                         except Exception as e:
                             print_red(f"Error Command Console:{e}", indent=1)

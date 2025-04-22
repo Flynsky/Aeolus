@@ -1,5 +1,5 @@
 import struct
-import threading
+from threading import Thread
 import time
 import serial
 import serial.tools.list_ports
@@ -20,16 +20,20 @@ class INTERFACE:
 
     def start(self):
         print_yellow("\n<<Compartion>>\n/? for help\n")
-        #self.autoconnect()
+        self.autoconnect()
+
+        # Start input thread
+        Thread(target=self.command_loop, daemon=True).start()
+
         while self.isRunning:
             time.sleep(DELAY_CONSOLE_LOOP)  # delay to conserve performance
             try:
-                self.input_command(input("~")) #needs an extra thread
+                #self.input_command(input("~")) #needs an extra thread
                 if self.Serial is not None:
                 
                     self.receive_data()
 
-                    if self.Serial.is_open is 0:
+                    if self.Serial.is_open == 0:
                         print_red("COM disconnected\n")
                         self.Serial = None
                         self.Port = None
@@ -42,6 +46,17 @@ class INTERFACE:
             except Exception as e:
                 print(e)
                 break
+
+    def command_loop(self):
+        """This handles user input. It's in an extra Thread to not block incomming data"""
+        while self.isRunning:
+            try:
+                cmd = input("~")
+                self.input_command(cmd)
+            except EOFError:
+                break
+            except Exception as e:
+                print_red(f"Command error: {e}")
 
     def receive_data(self):
         if self.Serial != None:
@@ -58,7 +73,7 @@ class INTERFACE:
         ports = serial.tools.list_ports.comports()
         # test for stm32
         for port in ports:
-            if "STM" in port.manufacturer:
+            if "STM" in str(port.manufacturer):
                 self.Port = port
                 self.Serial = serial.Serial(
                         self.Port.device, baudrate=9600, timeout=1
@@ -97,19 +112,22 @@ class INTERFACE:
                         print_yellow("No serial ports found.\n")
                         return
 
-                    print_yellow("COM port list:\n")
+                    print_yellow("COM ports:\n")
+                    print("nr|device|manufacturer|description")
                     a = 0
                     for port in ports:
                         if port.device != "":
                             if port == self.Port:  # replaxe none with stared port
                                 print_green(
-                                    f">>{a}|{port.device}|{port.manufacturer}\n"
+                                    f">>{a}|{port.device}|{port.manufacturer}|{port.description}\n"
                                 )
                             else:
                                 print(
-                                    f"{a}|{port.device}|{port.manufacturer}"
+                                    f"{a}|{port.device}|{port.manufacturer}|{port.description}"
                                 )  # - {port.description}- {port.product} -- {port.name}
-                            a = +1
+
+                            a += 1
+                            
 
                 case "select" | "s":
                     # select com port

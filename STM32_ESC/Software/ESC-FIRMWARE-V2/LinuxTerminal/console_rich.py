@@ -20,12 +20,13 @@ class INTERFACE:
 
     def start(self):
         print_yellow("\n<<Compartion>>\n/? for help\n")
-        self.autoconnect()
+        #self.autoconnect()
         while self.isRunning:
             time.sleep(DELAY_CONSOLE_LOOP)  # delay to conserve performance
             try:
+                self.input_command(input("~")) #needs an extra thread
                 if self.Serial is not None:
-                    self.input_command(input("~")) #needs an extra thread
+                
                     self.receive_data()
 
                     if self.Serial.is_open is 0:

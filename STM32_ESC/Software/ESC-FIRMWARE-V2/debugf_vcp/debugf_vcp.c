@@ -3,10 +3,12 @@
  */
 
 #include "debugf_vcp.h"
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include "usbd_cdc_if.h"
+#include <stdarg.h>      //used for debugf
+#include <stdio.h>       //tf i know
+#include <string.h>      //string operators to make my live easier
+#include "usbd_cdc_if.h" //access to the virtual com port buffer. DeInt of Vcp for dfu uploads
+
+float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel);
 
 /**
  * prints formated message over CDC
@@ -66,7 +68,9 @@ void debugf(const char *__restrict format, ...)
     va_end(args_copy);
 }
 
-extern uint8_t UserRxBufferFS[];
+
+#include "tim.h"
+extern uint8_t UserRxBufferFS[]; // buffer where commands get written to
 /**
  * Checks CDC recive buffer for new data.
  * Works with no modifications of any other files, just call this message periodicly.
@@ -87,54 +91,98 @@ void console_check()
         // debugf("Received data: %s\n", UserRxBufferFS);
 
         /*decode message*/
-        char command[4];                                      // Store the command (e.g., "/C")
-        float param0 = 0, param1 = 0, param2 = 0, param3 = 0; // Up to 4 parameters
+        char command[4] = {0};                                    // Store the command (e.g., "/C")
+        float param0 = -1, param1 = -1, param2 = -1, param3 = -1; // Up to 4 parameters
 
         /*Use sscanf to extract the command and up to 4 floats*/
         int num_params = sscanf((const char *)UserRxBufferFS, "%s %f %f %f %f", command, &param0, &param1, &param2, &param3);
         (void)num_params; // debugf("num_params:%i\n", num_params);
 
         // Print the command and the parameters
-        // debugf("~rec:%s|%f|%f|%f|%f|\n", command, param0, param1, param2, param3);
+        debugf("~rec:%s|%f|%f|%f|%f|\n", command, param0, param1, param2, param3);
 
         // debugf("r:%i,n:%i\n",com_encoded, (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0));
         int com_encoded = (int)((command[0] << 24) | (command[1] << 16) | (command[2] << 8) | command[3]); // encodes 4 char in one int to be compared by switch case
         switch (com_encoded)
         {
-            /*dfu update*/
+        /**here are the executions of all the commands */
+        /*help*/
         case (int)('?' << 24 | 0):
+        {
             debugf("\n--help--\n");
             debugf("-[str command]_[4x float param]\n");
-            debugf("-[?]_[X]:this help screen\n");
-            debugf("-[dfu]_[X]:Device Firmware Update\n");
-            debugf("-[pa]_[a c]:Set Phase A to High a !Low b\n");
+            debugf("-?|this help screen\n");
+            debugf("-dfu|Device Firmware Update\n");
+            debugf("-pa [freq] [dfu \\%]|Sets Phase A Freq\n");
             debugf("\n");
             break;
+        }
 
         /*dfu update*/
         case (int)('d' << 24 | 'f' << 16 | 'u' << 8 | 0):
+        {
             debugf("\n--DFU update--\n");
             HAL_Delay(10);
             jump_to_dfu_bootloader();
             break;
+        }
+
+        /*automatic phase A control*/
+        case (int)('p' << 24 | 'a' << 16 | 0):
+        {
+            debugf("Set Phase A freq=%.2fkHz duty=%.2f\\% \n", param0 / 1000.0, param1);
+
+            if ((int)param0 != -1)
+            {
+                int counter_freq = 80 * 1000 * 1000 / ((int)TIM1->PSC + 1);
+                TIM1->ARR = counter_freq / (int)param0;
+            }
+            if (param1 != -1)
+            {
+                TIM1->CCR1 = (int)((float)TIM1->ARR * param1);
+            }
+            break;
+        }
 
         /*manual phase A control*/
-        case (int)('p' << 24 | 'a' << 16 | 0):
-            debugf("Set Phase A to High %i !Low %i\n", (int)param0, (int)param1);
-            HAL_GPIO_WritePin(PIN_HI_A_GPIO_Port, PIN_HI_A_Pin, (int)param0);
-            HAL_GPIO_WritePin(PIN_LO_A_GPIO_Port, PIN_LO_A_Pin, (int)param1);
+        case (int)('p' << 24 | 'a' << 16 | 'm' << 8 | 0):
+        {
+            debugf("Set Phase A ARR=%i CCR1=%i CCR2=%i \n", (int)param0, (int)param1, (int)param2);
+            if ((int)param0 != -1)
+            {
+                TIM1->ARR = (int)param0;
+            }
+            if ((int)param1 != -1)
+            {
+                TIM1->CCR1 = (int)param1;
+            }
+            if ((int)param2 != -1)
+            {
+                TIM1->CCR2 = (int)param2;
+            }
             break;
+        }
 
-        /*manual phase C control*/
-        case (int)('p' << 24 | 'c' << 16 | 0):
-            debugf("Set Phase C to High %i !Low %i\n", (int)param0, (int)param1);
-            HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, (int)param0);
-            HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, (int)param1);
+        /*read ADC*/
+        case (int)('a' << 24 | 0):
+        {
+            extern ADC_HandleTypeDef hadc1;
+            debugf(">VC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_5) * (1 + 5.1));
+            debugf(">IC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_6));
+            debugf(">VB:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_7) * (1 + 5.1));
+            debugf(">IB:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_8));
+            debugf(">VA:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_9) * (1 + 5.1));
+            debugf(">IA:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_10));
+            debugf(">BatDIV:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_11) * (1 + 5.1));
+            debugf("\n");
             break;
+        }
 
         default:
+        {
             debugf("unknown commnad\n");
             break;
+        }
         }
 
         UserRxBufferFS[0] = 0;
@@ -184,4 +232,52 @@ void jump_to_dfu_bootloader()
     __set_MSP(*(volatile uint32_t *)bootloader_address);
     void (*bootloader_jump)(void) = (void (*)(void))(*(volatile uint32_t *)(bootloader_address + 4));
     bootloader_jump();
+}
+
+/* Function to perform a single ADC measurement */
+float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel)
+{
+    const float ADC_RESOLUTION = 4096.0; // 2^12Bit
+    const float V_REF = 3.3;             // V
+
+    uint32_t rawValue = 0;
+    float voltage = 0.0f;
+
+    /** Configure Regular Channel
+     */
+    ADC_ChannelConfTypeDef sConfig = {0};
+    sConfig.Channel = channel;
+    sConfig.Rank = ADC_REGULAR_RANK_1;
+    sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+    sConfig.SingleDiff = ADC_SINGLE_ENDED;
+    sConfig.OffsetNumber = ADC_OFFSET_NONE;
+    sConfig.Offset = 0;
+    if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
+    {
+        debugf("Error configuring ADC channel\n");
+        Error_Handler(); // Handle configuration error
+        return -1.0;
+    }
+
+    // Start the ADC
+    HAL_ADC_Start(hadc);
+
+    // Poll for conversion
+    if (HAL_ADC_PollForConversion(hadc, HAL_MAX_DELAY) != HAL_OK)
+    {
+        HAL_ADC_Stop(hadc);
+        debugf("Error ADC Poll");
+        return -1.0;
+    }
+
+    // Get raw ADC value
+    rawValue = HAL_ADC_GetValue(hadc);
+
+    // Convert raw ADC value to voltage
+    voltage = ((float)rawValue / (ADC_RESOLUTION - 1)) * V_REF;
+
+    // Stop the ADC
+    HAL_ADC_Stop(hadc);
+    // debugf("adc_raw:%i|conv:%f\n", rawValue, voltage);
+    return voltage;
 }

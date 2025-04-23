@@ -39,8 +39,10 @@ add to Src\usbd_cdc_if.c
 #ifndef DEBUGF_VCP_H
 #define DEBUGF_VCP_H
 
+// #include <stdint.h>      //includes datatypes uint32_t
+
 void debugf(const char *__restrict format, ...);
-void console_check();
+void console_check(); //checks if new command is recieved
 void print_startup();
 void jump_to_dfu_bootloader();
 

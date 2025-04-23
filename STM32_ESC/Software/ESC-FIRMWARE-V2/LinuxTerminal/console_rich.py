@@ -5,7 +5,7 @@ import serial
 import serial.tools.list_ports
 from colored_terminal import *
 
-DELAY_CONSOLE_LOOP = 0.1
+DELAY_CONSOLE_LOOP = 0.001
 
 
 class INTERFACE:
@@ -57,7 +57,7 @@ class INTERFACE:
             except EOFError:
                 break
             except Exception as e:
-                print_red(f"Command error: {e}")
+                print_red(f"Command error: {e}\n")
 
     def receive_data(self):
         if self.Serial != None:
@@ -65,7 +65,7 @@ class INTERFACE:
                 try:
                     received = self.Serial.readline().decode('utf-8')
                 except Exception as e:
-                    print_red(f"Error Serial Recive:{e}", indent=1) 
+                    print_red(f"Error Serial Recive:{e}\n", indent=1) 
                     
                 if received:
                     print_magenta(f"{received}")

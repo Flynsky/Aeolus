@@ -70,6 +70,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     # Add user defined libraries
 )
 
+<<<<<<< HEAD
 # Enable hardware floating-point support in the compiler (if applicable)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 
@@ -82,6 +83,8 @@ target_link_libraries(${PROJECT_NAME} m)
 # Allow GCC extensions (binary literals, etc.)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
+=======
+>>>>>>> 646bc7ff55e02b38e98e069340ac9393c39c8483
 # Convert output to hex and binary
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.hex

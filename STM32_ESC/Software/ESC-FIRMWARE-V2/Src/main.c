@@ -33,7 +33,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern ADC_HandleTypeDef hadc1;
-extern uint8_t *vcp_buffer_recieve;
+// extern uint8_t *vcp_buffer_recieve;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -55,7 +55,7 @@ extern uint8_t *vcp_buffer_recieve;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel);
+// float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -64,9 +64,9 @@ float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel);
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -103,14 +103,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(PIN_HI_C_GPIO_Port, PIN_HI_C_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(PIN_LO_C_GPIO_Port, PIN_LO_C_Pin, GPIO_PIN_SET);
-
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1); // starts inverted channel
   // HAL_ADC_Start_DMA(&hadc1, adc_buffer, 7);
 
   while (1)
   {
+    console_check();
     HAL_Delay(10);
+    // extern ADC_HandleTypeDef hadc1;
     // debugf(">VC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_5) * (1 + 5.1));
     // debugf(">IC:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_6));
     // debugf(">VB:%f\n", read_ADC_Value(&hadc1, ADC_CHANNEL_7) * (1 + 5.1));
@@ -121,41 +122,34 @@ int main(void)
     // debugf("\n");
 
     /* USER CODE END WHILE */
-    console_check();
+
     /* USER CODE BEGIN 3 */
     // HAL_GPIO_TogglePin(PIN_HI_C_GPIO_Port,PIN_HI_C_Pin);
     // HAL_GPIO_TogglePin(PIN_LO_C_GPIO_Port,PIN_LO_C_Pin);
-
-    // static int a = 0;
-    // a++;
-    // if (a > 100)
-    // {
-    //   jump_to_dfu_bootloader();
-    // }
   }
   /* USER CODE END 3 */
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_MSI;
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -173,8 +167,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -187,59 +182,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-/* Function to perform a single ADC measurement */
-float read_ADC_Value(ADC_HandleTypeDef *hadc, uint32_t channel)
-{
-  const float ADC_RESOLUTION = 4096.0; // 2^12Bit
-  const float V_REF = 3.3;             // V
 
-  uint32_t rawValue = 0;
-  float voltage = 0.0f;
-
-  /** Configure Regular Channel
-   */
-  ADC_ChannelConfTypeDef sConfig = {0};
-  sConfig.Channel = channel;
-  sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
-  sConfig.SingleDiff = ADC_SINGLE_ENDED;
-  sConfig.OffsetNumber = ADC_OFFSET_NONE;
-  sConfig.Offset = 0;
-  if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
-  {
-    debugf("Error configuring ADC channel\n");
-    Error_Handler(); // Handle configuration error
-    return -1.0;
-  }
-
-  // Start the ADC
-  HAL_ADC_Start(hadc);
-
-  // Poll for conversion
-  if (HAL_ADC_PollForConversion(hadc, HAL_MAX_DELAY) != HAL_OK)
-  {
-    HAL_ADC_Stop(hadc);
-    debugf("Error ADC Poll");
-    return -1.0;
-  }
-
-  // Get raw ADC value
-  rawValue = HAL_ADC_GetValue(hadc);
-
-  // Convert raw ADC value to voltage
-  voltage = ((float)rawValue / (ADC_RESOLUTION - 1)) * V_REF;
-
-  // Stop the ADC
-  HAL_ADC_Stop(hadc);
-  // debugf("adc_raw:%i|conv:%f\n", rawValue, voltage);
-  return voltage;
-}
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -251,14 +200,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

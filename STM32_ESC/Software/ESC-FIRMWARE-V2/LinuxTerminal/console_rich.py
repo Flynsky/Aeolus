@@ -1,11 +1,11 @@
 import struct
-import threading
+from threading import Thread
 import time
 import serial
 import serial.tools.list_ports
 from colored_terminal import *
 
-DELAY_CONSOLE_LOOP = 0.1
+DELAY_CONSOLE_LOOP = 0.001
 
 
 class INTERFACE:
@@ -21,14 +21,19 @@ class INTERFACE:
     def start(self):
         print_yellow("\n<<Compartion>>\n/? for help\n")
         self.autoconnect()
+
+        # Start input thread
+        Thread(target=self.command_loop, daemon=True).start()
+
         while self.isRunning:
             time.sleep(DELAY_CONSOLE_LOOP)  # delay to conserve performance
             try:
+                #self.input_command(input("~")) #needs an extra thread
                 if self.Serial is not None:
-                    self.input_command(input("~")) #needs an extra thread
+                
                     self.receive_data()
 
-                    if self.Serial.is_open is 0:
+                    if self.Serial.is_open == 0:
                         print_red("COM disconnected\n")
                         self.Serial = None
                         self.Port = None
@@ -42,13 +47,25 @@ class INTERFACE:
                 print(e)
                 break
 
+    def command_loop(self):
+        """This handles user input. It's in an extra Thread to not block incomming data"""
+        while self.isRunning:
+            try:
+                cmd = input("~")
+                #print("\033[2K", end="\r") #resets cursor
+                self.input_command(cmd)
+            except EOFError:
+                break
+            except Exception as e:
+                print_red(f"Command error: {e}\n")
+
     def receive_data(self):
         if self.Serial != None:
             if self.Serial.in_waiting > 0:
                 try:
                     received = self.Serial.readline().decode('utf-8')
                 except Exception as e:
-                    print_red(f"Error Serial Recive:{e}", indent=1) 
+                    print_red(f"Error Serial Recive:{e}\n", indent=1) 
                     
                 if received:
                     print_magenta(f"{received}")
@@ -57,12 +74,13 @@ class INTERFACE:
         ports = serial.tools.list_ports.comports()
         # test for stm32
         for port in ports:
-            if "STM" in port.manufacturer:
+            if "STM" in str(port.manufacturer) or "Arduino" in str(port.manufacturer):
                 self.Port = port
                 self.Serial = serial.Serial(
-                        self.Port.device, baudrate=9600, timeout=1
-                    )
+                self.Port.device, baudrate=9600, timeout=1
+                )
                 break
+
         
         if self.Port is None:
             print_red("Autoconnect failed\n")
@@ -96,19 +114,22 @@ class INTERFACE:
                         print_yellow("No serial ports found.\n")
                         return
 
-                    print_yellow("COM port list:\n")
+                    print_yellow("COM ports:\n")
+                    print("nr|name|manufacturer|description")
                     a = 0
                     for port in ports:
                         if port.device != "":
                             if port == self.Port:  # replaxe none with stared port
                                 print_green(
-                                    f">>{a}|{port.device}|{port.manufacturer}\n"
+                                    f">>{a}|{port.name}|{port.manufacturer}|{port.description}\n"
                                 )
                             else:
                                 print(
-                                    f"{a}|{port.device}|{port.manufacturer}"
+                                    f"{a}|{port.name}|{port.manufacturer}|{port.description}"
                                 )  # - {port.description}- {port.product} -- {port.name}
-                            a = +1
+
+                            a += 1
+                            
 
                 case "select" | "s":
                     # select com port
@@ -144,7 +165,7 @@ class INTERFACE:
                         print_red("No device connected\n")
                     else:
                         try:
-                            print_cyan(f"{command[2:]}\n")
+                            #print_cyan(f"{command[2:]}\n")
                             self.Serial.write((command[2:] +'\n').encode())
                         except Exception as e:
                             print_red(f"Error Command Console:{e}", indent=1)

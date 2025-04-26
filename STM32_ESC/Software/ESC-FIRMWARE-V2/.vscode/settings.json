@@ -4,6 +4,10 @@
         "dma.h": "c",
         "adc.h": "c",
         "usbd_core.h": "c",
-        "stm32l4xx.h": "c"
-    }
+        "stm32l4xx.h": "c",
+        "usbd_cdc.h": "c",
+        "stdarg.h": "c",
+        "stdint.h": "c"
+    },
+    "C_Cpp.default.compilerPath": ""
 }

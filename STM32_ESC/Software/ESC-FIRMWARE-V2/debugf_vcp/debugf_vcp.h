@@ -31,7 +31,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 *
 
-add to Src\usbd_cdc_if.c
+add to Src\usbd_cdc_if.C
 #include "debugf_vcp.h"
 
  */
@@ -39,8 +39,13 @@ add to Src\usbd_cdc_if.c
 #ifndef DEBUGF_VCP_H
 #define DEBUGF_VCP_H
 
+// #include <stdint.h>      //includes datatypes uint32_t
+#include <stdarg.h> //used for debugf
+#include <stdio.h>  //tf i know
+#include <string.h> //string operators to make my live easier
 void debugf(const char *__restrict format, ...);
-void console_check();
+
+void console_check(); // checks if new command is recieved
 void print_startup();
 void jump_to_dfu_bootloader();
 

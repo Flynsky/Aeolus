@@ -4,6 +4,9 @@ import time
 import serial
 import serial.tools.list_ports
 from colored_terminal import *
+import os
+import subprocess
+import platform
 
 DELAY_CONSOLE_LOOP = 0.001
 
@@ -120,7 +123,7 @@ class INTERFACE:
 
     def input_command(self, command: str):
         if len(command) > 1 and command[0] == "/":
-            match command[1:2]:
+            match command[1:].split()[0]: # filters for just the command regardless the length.
 
                 case "?":
                     print_yellow("<Help>")
@@ -131,7 +134,9 @@ class INTERFACE:
 /t [string] to uplink a raw string
 /c [command] [parameter] to uplink a command. 
    to see avaliable commands use /c [?]
+/dfu | list dfu devices
 /q | quit terminal
+
 """
                     )
 
@@ -220,14 +225,66 @@ class INTERFACE:
                     #     except Exception as e:
                     #         print_red(f"Error Command Console:{e}", indent=1)
                     pass
+                
+                case "dfu":
+                    print_yellow("List dfu devices\n")
 
+                    # # Get the absolute path to dfu-util
+                    base_path = os.path.dirname(os.path.abspath(__file__))
+
+                    if platform.system() == "Windows":
+                        path = base_path + "\dfu-util-static.exe"
+                    else:
+                        path = os.path.join(base_path, "dfu-util")
+
+                    # # (optional) make sure it's executable on Linux
+                    # if platform.system() != "Windows":
+                    #     os.chmod(path, 0o755)
+                    
+                    # print(path)
+                    # # Run it
+                    result = subprocess.run([path, "-l"], capture_output=True, text=True, check=True)
+                    
+                    output = result.stdout + result.stderr
+                    
+                    # # Show the output
+                    print(output)
+                
+                case "cmake"|"cm":
+                    print_yellow("Build project\n")
+                    # cmake --build ./build/Debug --config Debug
+                    base_path = os.path.dirname(os.path.abspath(__file__))
+                    base_path = os.path.dirname(base_path)
+                    print(f"Base path: {base_path}") # Construct the build path using os.path.join to handle different platforms
+                                          
+                    build_path = os.path.join(base_path, "build", "Debug")
+                    
+                    try:
+                      # Run the cmake build command
+                        result = subprocess.run(
+                          ["cmake", "--build", build_path, "--config", "Debug"],
+                          capture_output=True, text=True, check=True
+                       )
+                        # # Show the output
+                        print(result.stdout + result.stderr)
+                    except subprocess.CalledProcessError as e:
+                        print(f"Error occurred during build: {e}")
+                        print(f"Output: {e.output}")
+                        print(f"Return code: {e.returncode}")
+                        
+                    # # Get the absolute path to dfu-util
+                    base_path = os.path.dirname(os.path.abspath(__file__))
+
+                    
+                                    
                 case "quit" | "q":
                     print_yellow("<shuting down Interface>\n")
                     # self.Serial.IsRunning = 0
                     self.isRunning = 0
                     print_yellow("<all down>\n", indent=1)
+                    
                 case _:
-                    print_red(f"Unknown Command {command[1:]}\n")
+                    print_red(f'Unknown Command "{command[1:]}"\n')
         else:
             print_yellow("use /? for help\n")
 

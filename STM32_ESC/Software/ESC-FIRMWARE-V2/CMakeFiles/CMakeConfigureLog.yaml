@@ -127,3 +127,15 @@ events:
         /home/fynn/Documents/Projects/Aeolus/STM32_ESC/Software/ESC-FIRMWARE-V2/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
       
 ...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:32 (enable_language)"
+    message: |
+      The target system is: Generic -  - arm
+      The host system is: Windows - 10.0.26100 - AMD64
+...

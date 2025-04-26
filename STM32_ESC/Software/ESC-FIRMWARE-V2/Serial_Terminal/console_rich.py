@@ -10,6 +10,7 @@ import platform
 
 DELAY_CONSOLE_LOOP = 0.001
 
+
 class INTERFACE:
     """for a terminal based controll over the server"""
 
@@ -35,19 +36,24 @@ class INTERFACE:
 
                 # Auto reconnection
                 if self.Serial is None:
-                    # leading animation
                     
-                    if not self.counter%20: #reduce prints to every 2 seconds
-                        print("\033[2K\033[G", end="", flush=True)  # Clears the current line
+                    # reconnection animation
+                    if not self.counter % 20:  # reduce prints to every 2 seconds
+                        print("\033\033[1A", end="") #moves cursor up a line
+                        print("\033[2K\033[G", end="")  # Clears the current line
                         print_cyan(
-                            "waiting for a connection[" + int(self.counter/20) * "." + "]", indent=1
+                            "waiting for a connection["
+                            + int(self.counter / 20) * "."
+                            + "]",
+                            indent=1,
                         )
-                    
+                        print("\n", end="", flush=True) #moves cursor down a line
+
                     if self.counter > 80:
                         self.counter = 0
                     else:
                         self.counter += 1
-                        
+
                     # reconnect
                     self.autoconnect(reconnection=True)
                     time.sleep(0.1)
@@ -59,7 +65,7 @@ class INTERFACE:
                 else:
                     self.Serial = None
                     self.Port = None
-                    print_red(f'Disconnected\n')
+                    print_red(f"Disconnected\n")
 
             except KeyboardInterrupt:
                 print_yellow(
@@ -85,8 +91,8 @@ class INTERFACE:
                 else:
                     self.Serial = None
                     self.Port = None
-                    print_red(f'Disconnected\n')
-                    
+                    print_red(f"Disconnected\n")
+
             except Exception as e:
                 print_red(f"Error Serial Recive:{e}\n", indent=1)
 
@@ -111,11 +117,11 @@ class INTERFACE:
                 self.Serial = serial.Serial(self.Port.device, baudrate=9600, timeout=1)
                 break
 
-        if self.Port is None: #costmetics for leading animation
+        if self.Port is None:  # costmetics for leading animation
             if not reconnection:
                 print_red("Autoconnect failed\n", indent=1)
         else:
-            if reconnection: #costmetics for leading animation
+            if reconnection:  # costmetics for leading animation
                 print("\033[2K\033[G", end="", flush=True)  # Clears the current line
 
             print_green("Autoconnect")
@@ -123,7 +129,9 @@ class INTERFACE:
 
     def input_command(self, command: str):
         if len(command) > 1 and command[0] == "/":
-            match command[1:].split()[0]: # filters for just the command regardless the length.
+            match command[1:].split()[
+                0
+            ]:  # filters for just the command regardless the length.
 
                 case "?":
                     print_yellow("<Help>")
@@ -135,6 +143,8 @@ class INTERFACE:
 /c [command] [parameter] to uplink a command. 
    to see avaliable commands use /c [?]
 /dfu | list dfu devices
+/cmkae | runns Cmkae
+/flash [Firmware.bin==./build/Debug/ESC.bin] flashes firmware
 /q | quit terminal
 
 """
@@ -225,7 +235,7 @@ class INTERFACE:
                     #     except Exception as e:
                     #         print_red(f"Error Command Console:{e}", indent=1)
                     pass
-                
+
                 case "dfu":
                     print_yellow("List dfu devices\n")
 
@@ -233,56 +243,89 @@ class INTERFACE:
                     base_path = os.path.dirname(os.path.abspath(__file__))
 
                     if platform.system() == "Windows":
-                        path = base_path + "\dfu-util-static.exe"
+                        path = os.path.join(base_path, "dfu-util-static.exe")
                     else:
                         path = os.path.join(base_path, "dfu-util")
 
-                    # # (optional) make sure it's executable on Linux
-                    # if platform.system() != "Windows":
-                    #     os.chmod(path, 0o755)
-                    
-                    # print(path)
+                    # print(base_path)
                     # # Run it
-                    result = subprocess.run([path, "-l"], capture_output=True, text=True, check=True)
-                    
+                    result = subprocess.run(
+                        [path, "-l"], capture_output=True, text=True, check=True
+                    )
+
                     output = result.stdout + result.stderr
-                    
+
                     # # Show the output
                     print(output)
-                
-                case "cmake"|"cm":
+
+                case "cmake" | "cm":
                     print_yellow("Build project\n")
                     # cmake --build ./build/Debug --config Debug
                     base_path = os.path.dirname(os.path.abspath(__file__))
                     base_path = os.path.dirname(base_path)
-                    print(f"Base path: {base_path}") # Construct the build path using os.path.join to handle different platforms
-                                          
+                    # print(f"Base path: {base_path}") 
+
                     build_path = os.path.join(base_path, "build", "Debug")
-                    
+
                     try:
-                      # Run the cmake build command
+                        # Run the cmake build command
                         result = subprocess.run(
-                          ["cmake", "--build", build_path, "--config", "Debug"],
-                          capture_output=True, text=True, check=True
-                       )
+                            ["cmake", "--build", build_path, "--config", "Debug"],
+                            capture_output=True,
+                            text=True,
+                            check=True,
+                        )
                         # # Show the output
                         print(result.stdout + result.stderr)
                     except subprocess.CalledProcessError as e:
                         print(f"Error occurred during build: {e}")
                         print(f"Output: {e.output}")
                         print(f"Return code: {e.returncode}")
-                        
+
                     # # Get the absolute path to dfu-util
                     base_path = os.path.dirname(os.path.abspath(__file__))
 
+                case "flash":
+                    DFU_COMMAND = "dfu\n"
+                    BIN_LOCATION = "build", "Debug" ,"ESC.bin"
+                    print_yellow("<Flash dfu device>\n")
                     
-                                    
+                    if self.Serial is not None:
+                        print_yellow(f'Sending dfu command {repr(DFU_COMMAND)}\n')
+                        self.Serial.write((DFU_COMMAND).encode())
+                    time.sleep(0.5)
+                    
+                    # COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+
+                    # # Get the absolute path to dfu-util
+                    base_path = os.path.dirname(os.path.abspath(__file__))
+
+                    if platform.system() == "Windows":
+                        path = os.path.join(base_path, "dfu-util-static.exe")
+                        path_bin = os.path.join(
+                            os.path.dirname(base_path), *BIN_LOCATION
+                        )
+                    else:
+                        path = os.path.join(base_path, "dfu-util")
+
+                    # print(f'command: {path + " -a 0 -i 0 -s 0x08000000:leave" + " -D " + path_bin}') 
+                    
+                    # # Run it
+                    result = subprocess.run(
+                        [path, "-a","0","-i","0","-s","0x08000000:leave", "-D",path_bin], capture_output=True, text=True, check=True
+                    )
+
+                    output = result.stdout + result.stderr
+
+                    # # Show the output
+                    print(output)
+
                 case "quit" | "q":
                     print_yellow("<shuting down Interface>\n")
                     # self.Serial.IsRunning = 0
                     self.isRunning = 0
                     print_yellow("<all down>\n", indent=1)
-                    
+
                 case _:
                     print_red(f'Unknown Command "{command[1:]}"\n')
         else:

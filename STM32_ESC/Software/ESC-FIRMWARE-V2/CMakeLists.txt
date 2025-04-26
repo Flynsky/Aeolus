@@ -12,6 +12,8 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+# set(CMAKE_BUILD_TYPE "Debug")
+# set(CMAKE_BUILD_TYPE "MinSizeRel")
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -92,25 +94,25 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_PROJECT_NAME}.bin
 )
 
-# Add a custom command to run after the target is built
-message(STATUS "Building on host system: ${CMAKE_HOST_SYSTEM_NAME}")
-# Windows:
-if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-add_custom_command(
-    TARGET ${CMAKE_PROJECT_NAME}
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
-    COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
-    COMMENT "Uploading firmware using dfu-util"
-)
-else()
-     add_custom_command(
-     TARGET ${CMAKE_PROJECT_NAME}
-     POST_BUILD
-     COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
-     COMMAND dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
-     COMMENT "Uploading firmware using dfu-util"
- )
-endif ()
+# # Add a custom command to run after the target is built
+# message(STATUS "Building on host system: ${CMAKE_HOST_SYSTEM_NAME}")
+# # Windows:
+# if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+# add_custom_command(
+#     TARGET ${CMAKE_PROJECT_NAME}
+#     POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
+#     COMMAND ../../dfu-util/dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+#     COMMENT "Uploading firmware using dfu-util"
+# )
+# else()
+#      add_custom_command(
+#      TARGET ${CMAKE_PROJECT_NAME}
+#      POST_BUILD
+#      COMMAND ${CMAKE_COMMAND} -E echo "Starting DFU upload..."
+#      COMMAND dfu-util -a 0 -i 0 -s 0x08000000:leave -D ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+#      COMMENT "Uploading firmware using dfu-util"
+#  )
+# endif ()
 
 

@@ -7,7 +7,6 @@ from colored_terminal import *
 
 DELAY_CONSOLE_LOOP = 0.001
 
-
 class INTERFACE:
     """for a terminal based controll over the server"""
 
@@ -15,7 +14,7 @@ class INTERFACE:
         self.isRunning = True
         self.Port = None
         self.Serial = None
-
+        self.counter = 0
         self.start()
 
     def start(self):
@@ -28,68 +27,96 @@ class INTERFACE:
         while self.isRunning:
             time.sleep(DELAY_CONSOLE_LOOP)  # delay to conserve performance
             try:
-                #self.input_command(input("~")) #needs an extra thread
                 if self.Serial is not None:
-                
                     self.receive_data()
 
-                    if self.Serial.is_open == 0:
-                        print_red("COM disconnected\n")
-                        self.Serial = None
-                        self.Port = None
-                
+                # Auto reconnection
+                if self.Serial is None:
+                    # leading animation
+                    
+                    if not self.counter%20: #reduce prints to every 2 seconds
+                        print("\033[2K\033[G", end="", flush=True)  # Clears the current line
+                        print_cyan(
+                            "waiting for a connection[" + int(self.counter/20) * "." + "]", indent=1
+                        )
+                    
+                    if self.counter > 80:
+                        self.counter = 0
+                    else:
+                        self.counter += 1
+                        
+                    # reconnect
+                    self.autoconnect(reconnection=True)
+                    time.sleep(0.1)
+
+            except serial.SerialException as e:
+                if self.Serial is None:
+                    # print_red(f'start() error:"{e}"\n')
+                    self.Port = None
+                else:
+                    self.Serial = None
+                    self.Port = None
+                    print_red(f'Disconnected\n')
+
             except KeyboardInterrupt:
                 print_yellow(
-                    "blocked keyboard interupt. Use /q to savely shutdown server\n"
+                    "blocked keyboard interupt. Use /q to savely shutdown server\n",
+                    indent=1,
                 )
 
             except Exception as e:
                 print(e)
                 break
 
+    def receive_data(self):
+        if self.Serial != None:
+            try:
+                if self.Serial.in_waiting > 0:
+                    received = self.Serial.readline().decode("utf-8")
+                    print_magenta(f"{received}")
+
+            except serial.SerialException as e:
+                if self.Serial is None:
+                    print_red(f'recive data error:"{e}"\n')
+                    self.Port = None
+                else:
+                    self.Serial = None
+                    self.Port = None
+                    print_red(f'Disconnected\n')
+                    
+            except Exception as e:
+                print_red(f"Error Serial Recive:{e}\n", indent=1)
+
     def command_loop(self):
         """This handles user input. It's in an extra Thread to not block incomming data"""
         while self.isRunning:
             try:
                 cmd = input("~")
-                #print("\033[2K", end="\r") #resets cursor
+                # print("\033[2K", end="\r") #resets cursor
                 self.input_command(cmd)
             except EOFError:
                 break
             except Exception as e:
-                print_red(f"Command error: {e}\n")
+                print_red(f"Command error: {e}\n", indent=1)
 
-    def receive_data(self):
-        if self.Serial != None:
-            if self.Serial.in_waiting > 0:
-                try:
-                    received = self.Serial.readline().decode('utf-8')
-                except Exception as e:
-                    print_red(f"Error Serial Recive:{e}\n", indent=1) 
-                    
-                if received:
-                    print_magenta(f"{received}")
-
-    def autoconnect(self):
+    def autoconnect(self, reconnection=False):
         ports = serial.tools.list_ports.comports()
         # test for stm32
         for port in ports:
             if "STM" in str(port.manufacturer) or "Arduino" in str(port.manufacturer):
                 self.Port = port
-                self.Serial = serial.Serial(
-                self.Port.device, baudrate=9600, timeout=1
-                )
+                self.Serial = serial.Serial(self.Port.device, baudrate=9600, timeout=1)
                 break
 
-        
-        if self.Port is None:
-            print_red("Autoconnect failed\n")
+        if self.Port is None: #costmetics for leading animation
+            if not reconnection:
+                print_red("Autoconnect failed\n", indent=1)
         else:
-            print_green("Autoconnect")
-            print_white(
-                            f":{self.Port.device}|{self.Port.manufacturer}|9600\n"
-                        )
+            if reconnection: #costmetics for leading animation
+                print("\033[2K\033[G", end="", flush=True)  # Clears the current line
 
+            print_green("Autoconnect")
+            print_white(f":{self.Port.device}|{self.Port.manufacturer}|9600\n")
 
     def input_command(self, command: str):
         if len(command) > 1 and command[0] == "/":
@@ -129,23 +156,22 @@ class INTERFACE:
                                 )  # - {port.description}- {port.product} -- {port.name}
 
                             a += 1
-                            
 
                 case "select" | "s":
                     # select com port
                     comand_buf = command[3:].split()
                     ports = serial.tools.list_ports.comports()
                     number = int(comand_buf[0])
-                    
-                    if(number>len(ports)):
+
+                    if number > len(ports):
                         print_red("values to high. try /l\n")
                         return
 
-                    #select baundrate
+                    # select baundrate
                     baudrate = 9600
                     if len(comand_buf) > 1:
-                        baudrate = int(comand_buf[1])                       
-                        
+                        baudrate = int(comand_buf[1])
+
                     # select com port
                     if len(ports) >= number:
                         self.Port = ports[number]
@@ -158,19 +184,19 @@ class INTERFACE:
                     )
 
                     pass
-                
+
                 # sends string
                 case "t":
                     if self.Serial is None:
                         print_red("No device connected\n")
                     else:
                         try:
-                            #print_cyan(f"{command[2:]}\n")
-                            self.Serial.write((command[2:] +'\n').encode())
+                            # print_cyan(f"{command[2:]}\n")
+                            self.Serial.write((command[2:] + "\n").encode())
                         except Exception as e:
                             print_red(f"Error Command Console:{e}", indent=1)
                     pass
-                
+
                 # sends a command
                 case "c":
                     # if self.Serial.port_active is None:

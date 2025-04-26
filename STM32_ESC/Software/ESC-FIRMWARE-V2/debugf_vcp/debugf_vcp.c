@@ -3,6 +3,8 @@
  */
 
 #include "debugf_vcp.h"
+// #include <stdint.h>
+// debugf
 #include <stdarg.h>      //used for debugf
 #include <stdio.h>       //tf i know
 #include <string.h>      //string operators to make my live easier
@@ -67,7 +69,6 @@ void debugf(const char *__restrict format, ...)
     va_end(args);
     va_end(args_copy);
 }
-
 
 #include "tim.h"
 extern uint8_t UserRxBufferFS[]; // buffer where commands get written to
@@ -144,7 +145,7 @@ void console_check()
             break;
         }
 
-        /*manual phase A control*/
+            /*manual phase A control*/
         case (int)('p' << 24 | 'a' << 16 | 'm' << 8 | 0):
         {
             debugf("Set Phase A ARR=%i CCR1=%i CCR2=%i \n", (int)param0, (int)param1, (int)param2);
@@ -204,8 +205,8 @@ void print_startup()
     debugf("\033[0m");
 }
 
-#include "stm32l4xx.h"
 #include "usbd_core.h"
+#include "stm32l4xx.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 extern USBD_DescriptorsTypeDef FS_Desc;

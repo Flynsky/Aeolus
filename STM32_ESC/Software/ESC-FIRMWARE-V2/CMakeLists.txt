@@ -70,6 +70,17 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     # Add user defined libraries
 )
 
+# Enable hardware floating-point support in the compiler (if applicable)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
+
+# Add the linker flag to enable floating-point support in printf
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float -u _scanf_float")
+
+# Link the math library to support floating-point operations
+target_link_libraries(${PROJECT_NAME} m)
+
+# Allow GCC extensions (binary literals, etc.)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
 # Convert output to hex and binary
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
@@ -82,8 +93,9 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 )
 
 # Add a custom command to run after the target is built
+message(STATUS "Building on host system: ${CMAKE_HOST_SYSTEM_NAME}")
 # Windows:
-if (WIN32)
+if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME}
     POST_BUILD
@@ -101,14 +113,4 @@ else()
  )
 endif ()
 
-# Enable hardware floating-point support in the compiler (if applicable)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 
-# Add the linker flag to enable floating-point support in printf
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float -u _scanf_float")
-
-# Link the math library to support floating-point operations
-target_link_libraries(${PROJECT_NAME} m)
-
-# Allow GCC extensions (binary literals, etc.)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")

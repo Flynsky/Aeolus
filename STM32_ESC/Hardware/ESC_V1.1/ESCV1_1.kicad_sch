@@ -5683,9 +5683,9 @@
 		)
 		(uuid "348b01dd-1e6a-417b-ab16-c908f2ea7f07")
 	)
-	(text "Design Errors\n -NMos Source/Drain Switched\n -Halfbridge Driver for 2 NMos\n -no Boot/Reset Buttons\n -wrong Diode Footprint\n\n"
+	(text "Design Fixes\n -NMos Source/Drain Switched\n -Halfbridge Driver for 2 NMos\n -no Boot/Reset Buttons\nDesign Errors\n -wrong Diode Footprint\n\n"
 		(exclude_from_sim no)
-		(at 303.784 140.462 0)
+		(at 301.498 142.748 0)
 		(effects
 			(font
 				(size 2.54 2.54)
